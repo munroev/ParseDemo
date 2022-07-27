@@ -1,0 +1,172 @@
+procedure main()
+    program() /* invoke start symbol */
+
+
+procedure program() /* this is the start symbol */
+    case input_token of
+        id, read, write, $$ : /* P1: P -> SL $$ */
+            stmtlist()
+            match($$)
+            
+        otherwise parse_error
+
+
+procedure stmtlist()
+    case input_token of
+        id, read, write : /* P2: SL -> S SL */
+            stmt()
+            stmtlist()
+            
+        $$ : /* P3: SL -> epsilon*/
+            skip /* epsilon production */
+            
+        otherwise parse_error
+
+        
+procedure stmt()
+    case input_token of
+        id : /* P4: S -> id := E */
+            match(id)
+            match(:=)
+            expr()
+            
+        read : /* P5: S -> read id */
+            match(read)
+            match(id)
+            
+        write : /* P6: S -> write E */
+            match(write)
+            expr()
+
+        if : /* P7: S -> if C SL end */
+            match(if)
+            cond()
+            stmtlist()
+            match(end)
+            
+        while : /* P8: S -> while C SL end */
+            match(while)
+            cond()
+            stmtlist()
+            match(end)
+            
+        otherwise parse_error
+
+
+procedure cond()
+    case input_token of
+        (, id, lit : /* P9: C -> E ro E */
+            expr()
+            relop()
+            expr()
+
+        otherwise parse_error
+
+
+procedure expr()
+    case input_token of
+        (, id, lit : /* P10: E -> T TT */
+            term()
+            termtail()
+
+        otherwise parse_error
+
+
+procedure term()
+    case input_token of
+        (, id, lit : /* P11: T -> F FT */
+            factor()
+            factortail()
+
+        otherwise parse_error
+
+
+procedure factor()
+    case input_token of
+        ( : /* P12: F -> ( E ) */
+            match('(')
+            expr()
+            match(')')
+            
+        id : /* P13: F -> id */
+            match(id)
+            
+        lit : /* P14: F -> lit */
+            match(lit)
+
+        otherwise parse_error
+
+
+procedure termtail()
+    case input_token of
+        addop : /* P15: TT -> ao T TT */
+            addop()
+            term()
+            termtail()
+            
+        id, read, write, if, while, end,
+        <, <=, <>, =, >, >=, ), $$ : /* P16: TT -> epsilon */
+            skip /* epsilon production */
+
+        otherwise parse_error
+
+
+procedure factortail()
+    case input_token of
+        multop : /* P17: FT -> mo F FT */
+            multop()
+            factor()
+            factortail()
+
+        id, read, write, if, while, end,
+        <, <=, <>, =, >, >=, ), +, -, $$ : /* P18: FT -> epsilon */
+            skip /* epsilon production */
+
+        otherwise parse_error
+
+
+procedure relop()
+    case input_token of
+        = : /* P19: ro -> = */
+            match(=)
+
+        <> : /* P20: ro -> <> */
+            match(<>)
+
+        < : /* P21: ro -> < */
+            match(<)
+
+        > : /* P22: ro -> > */
+            match(>)
+
+        <= : /* P23: ro -> <= */
+            match(<=)
+
+        >= : /* P24: ro -> >= */
+            match(>=)
+            
+        otherwise parse_error
+
+
+procedure relop()
+    case input_token of
+        + : /* P25: ao -> + */
+            match(+)
+
+        - : /* P26: ao -> - */
+            match(-)
+            
+        otherwise parse_error
+
+
+procedure multop()
+    case input_token of
+        * : /* P27: mo -> * */
+            match(*)
+
+        / : /* P28: mo -> / */
+            match(/)
+            
+        otherwise parse_error
+
+

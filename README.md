@@ -10,7 +10,7 @@ Please note that while Java is often touted as a language you can "write once an
 
 ## New Features
 
-Live load Algorithms (7/28/22) : You can now live load Algorithms via drop down menu instead of restarting the program over and over.
+Live load Algorithms (7/28/22) : You can now live load Algorithms via a drop down menu instead of restarting the program over and over.
 
 ## Folder Structure
 

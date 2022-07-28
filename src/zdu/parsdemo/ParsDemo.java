@@ -42,7 +42,7 @@ import java.util.Scanner;
  * 
  * /**
  * Accepts a single argument specifying which algorithm to run.
- * While this was once an applet it has been converted a stand alone app where
+ * While this was once an applet it has been converted to a stand alone app where
  * the user can select grammars to parse with a drop down menu.
  */
 public class ParsDemo extends JFrame implements Runnable, ActionListener, WindowListener {

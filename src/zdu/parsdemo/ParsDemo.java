@@ -38,9 +38,9 @@ import javax.swing.JPanel;
 import java.util.Scanner;
 
 /**
-Play and display different parsing algorithms in action.
-
-/**
+ * Play and display different parsing algorithms in action.
+ * 
+ * /**
  * Accepts a single argument specifying which algorithm to run.
  * While this was once an applet it has been converted a stand alone app where
  * the user can select grammars to parse with a drop down menu.
@@ -74,7 +74,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       Font font = new Font("Plain", Font.ROMAN_BASELINE, 13);
 
       super.setFont(font);
-      
+
       scanner = new ExtendedScanner();
 
       if (algorithm == REC_DESCENT_PARSER) {
@@ -93,10 +93,11 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          prgTableCanvas = new FileCanvas(d, (int) (SELECT_WIDTH * w), (int) (SELECT_HEIGHT * h),
                "Recursive-Descent Parsing Program");
          treeCanvas = new TreeCanvas((int) (TREE_WIDTH * w), (int) (TREE_HEIGHT * h), "Recursive Descent Parse Tree");
-         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * w), (int) (TRACE_HEIGHT * h),"Recursive Descent Trace Stack");
+         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * w), (int) (TRACE_HEIGHT * h),
+               "Recursive Descent Trace Stack");
 
          ExtendedLL1Gram grammar = new ExtendedLL1Gram();
-         
+
          parseDisplay = new ParseDisplay(treeCanvas, prgTableCanvas, traceCanvas);
          parser = new ExtendedRecDescent(grammar, scanner, parseDisplay);
          this.setTitle("Recursive Descent Parser");
@@ -109,7 +110,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
                (int) (SELECT_WIDTH * w), (int) (SELECT_HEIGHT * h),
                "LL(1) Parsing Table");
          treeCanvas = new TreeCanvas((int) (TREE_WIDTH * w), (int) (TREE_HEIGHT * h), "LL1 Parse Tree");
-         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * w), (int) (TRACE_HEIGHT * h),"LL1 Trace Stack");
+         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * w), (int) (TRACE_HEIGHT * h), "LL1 Trace Stack");
 
          parseDisplay = new ParseDisplay(treeCanvas, prgTableCanvas, traceCanvas);
          parser = new LL1Parser(grammar, llTab, scanner, parseDisplay);
@@ -123,7 +124,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
                (int) (SELECT_WIDTH * w), (int) (SELECT_HEIGHT * h),
                "Shift-Reduce Parsing Table");
          treeCanvas = new TreeCanvas((int) (TREE_WIDTH * w), (int) (TREE_HEIGHT * h), "SR Parse Tree");
-         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * w), (int) (TRACE_HEIGHT * h),"SR Trace Stack");
+         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * w), (int) (TRACE_HEIGHT * h), "SR Trace Stack");
 
          parseDisplay = new ParseDisplay(treeCanvas, prgTableCanvas, traceCanvas);
          parser = new SRParser(grammar, srTab, scanner, parseDisplay);
@@ -159,7 +160,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.anchor = GridBagConstraints.NORTH;
       layout.setConstraints(treeCanvas.getComponent(), c);
       add(treeCanvas.getComponent());
-      
+
       c.gridx = 0;
       c.gridy = 50;
       c.weightx = 100;
@@ -290,11 +291,12 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    void doFlash() {
       startStepButton.setEnabled(false);
       runStopButton.setEnabled(false);
-      
+
       for (int i = 0; i < N_FLASH; i++) {
          try {
 
-            startStepButton.setEnabled(false);;
+            startStepButton.setEnabled(false);
+            ;
             repaint();
             Thread.sleep(FLASH_DELAY);
             startStepButton.setEnabled(false);
@@ -304,7 +306,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          }
       }
       startStepButton.setEnabled(true);
-      runStopButton.setEnabled(true);;
+      runStopButton.setEnabled(true);
+      ;
    }
 
    private void doStart() {
@@ -339,8 +342,10 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          doStep();
       } else if (e.getSource() == startStepButton && startStepButton.getText().equals("start")) {
          doStart();
-      } else if (e.getSource() == runStopButton) {
+      } else if (e.getSource() == runStopButton && runStopButton.getText().equals("run")) {
          doRun();
+      } else if (e.getSource() == runStopButton && runStopButton.getText().equals("stop")) {
+         doStop();
       } else if (e.getSource() == Rec) {
 
          this.getContentPane().remove(treeCanvas.getComponent());
@@ -373,8 +378,10 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
 
          prgTableCanvas = new FileCanvas(d, (int) (SELECT_WIDTH * 1100), (int) (SELECT_HEIGHT * 1100),
                "Recursive-Descent Parsing Program");
-         treeCanvas = new TreeCanvas((int) (TREE_WIDTH * 1100), (int) (TREE_HEIGHT * 1100), "Recursive Descent Parse Tree");
-         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * 1100), (int) (TRACE_HEIGHT * 1100),"Recursive Descent Trace Stack");
+         treeCanvas = new TreeCanvas((int) (TREE_WIDTH * 1100), (int) (TREE_HEIGHT * 1100),
+               "Recursive Descent Parse Tree");
+         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * 1100), (int) (TRACE_HEIGHT * 1100),
+               "Recursive Descent Trace Stack");
 
          ExtendedLL1Gram grammar = new ExtendedLL1Gram();
 
@@ -384,7 +391,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          GridBagLayout layout = new GridBagLayout();
          this.setLayout(layout);
          GridBagConstraints c = new GridBagConstraints();
-   
+
          c.gridx = 0;
          c.gridy = 5;
          c.weightx = 100;
@@ -395,7 +402,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.NORTH;
          layout.setConstraints(treeCanvas.getComponent(), c);
          add(treeCanvas.getComponent());
-         
+
          c.gridx = 0;
          c.gridy = 50;
          c.weightx = 100;
@@ -406,7 +413,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.SOUTHWEST;
          layout.setConstraints(prgTableCanvas.getComponent(), c);
          add(prgTableCanvas.getComponent());
-   
+
          c.gridx = 55;
          c.gridy = 50;
          c.weightx = 100;
@@ -428,7 +435,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(updateButton, c);
          add(updateButton);
-   
+
          c.gridx = 10;
          c.gridy = 95;
          c.weightx = 100;
@@ -438,7 +445,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(inputField, c);
          add(inputField);
-   
+
          c.gridx = 70;
          c.gridy = 95;
          c.weightx = 0;
@@ -449,7 +456,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(startStepButton, c);
          add(startStepButton);
-   
+
          c.gridx = 80;
          c.gridy = 95;
          c.weightx = 0;
@@ -460,7 +467,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(runStopButton, c);
          add(runStopButton);
-   
+
          c.gridx = 90;
          c.gridy = 95;
          c.weightx = 0;
@@ -471,7 +478,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(runDelayScrollbar, c);
          add(runDelayScrollbar);
-   
+
          c.gridx = 98;
          c.gridy = 95;
          c.weightx = 0;
@@ -479,7 +486,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.gridheight = 5;
          c.gridwidth = 8;
          c.fill = GridBagConstraints.NONE;
-   
+
          layout.setConstraints(menuBar, c);
          add(menuBar);
 
@@ -487,9 +494,9 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          this.validate();
          this.setTitle("Recursive Descent Parser");
          doStart();
-         
+
       } else if (e.getSource() == LL) {
-         
+
          this.getContentPane().remove(treeCanvas.getComponent());
          this.getContentPane().remove(traceCanvas.getComponent());
          this.getContentPane().remove(prgTableCanvas.getComponent());
@@ -511,15 +518,15 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
                (int) (SELECT_WIDTH * 1100), (int) (SELECT_HEIGHT * 1100),
                "LL(1) Parsing Table");
          treeCanvas = new TreeCanvas((int) (TREE_WIDTH * 1100), (int) (TREE_HEIGHT * 1100), "LL1 Parse Tree");
-         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * 1100), (int) (TRACE_HEIGHT * 1100),"LL1 Trace Stack");
-         
+         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * 1100), (int) (TRACE_HEIGHT * 1100), "LL1 Trace Stack");
+
          parseDisplay = new ParseDisplay(treeCanvas, prgTableCanvas, traceCanvas);
          parser = new LL1Parser(grammar, llTab, scanner, parseDisplay);
-         
+
          GridBagLayout layout = new GridBagLayout();
          this.setLayout(layout);
          GridBagConstraints c = new GridBagConstraints();
-   
+
          c.gridx = 0;
          c.gridy = 5;
          c.weightx = 100;
@@ -530,7 +537,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.NORTH;
          layout.setConstraints(treeCanvas.getComponent(), c);
          add(treeCanvas.getComponent());
-         
+
          c.gridx = 0;
          c.gridy = 50;
          c.weightx = 100;
@@ -541,7 +548,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.SOUTHWEST;
          layout.setConstraints(prgTableCanvas.getComponent(), c);
          add(prgTableCanvas.getComponent());
-   
+
          c.gridx = 55;
          c.gridy = 50;
          c.weightx = 100;
@@ -563,7 +570,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(updateButton, c);
          add(updateButton);
-   
+
          c.gridx = 10;
          c.gridy = 95;
          c.weightx = 100;
@@ -573,7 +580,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(inputField, c);
          add(inputField);
-   
+
          c.gridx = 70;
          c.gridy = 95;
          c.weightx = 0;
@@ -584,7 +591,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(startStepButton, c);
          add(startStepButton);
-   
+
          c.gridx = 80;
          c.gridy = 95;
          c.weightx = 0;
@@ -595,7 +602,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(runStopButton, c);
          add(runStopButton);
-   
+
          c.gridx = 90;
          c.gridy = 95;
          c.weightx = 0;
@@ -606,7 +613,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(runDelayScrollbar, c);
          add(runDelayScrollbar);
-   
+
          c.gridx = 98;
          c.gridy = 95;
          c.weightx = 0;
@@ -614,16 +621,15 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.gridheight = 5;
          c.gridwidth = 8;
          c.fill = GridBagConstraints.NONE;
-   
+
          layout.setConstraints(menuBar, c);
          add(menuBar);
 
-         
          this.invalidate();
          this.validate();
          this.setTitle("LL1 Parser");
          doStart();
-         
+
       } else if (e.getSource() == SR) {
 
          this.getContentPane().remove(treeCanvas.getComponent());
@@ -648,15 +654,15 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
                (int) (SELECT_WIDTH * 1100), (int) (SELECT_HEIGHT * 1100),
                "Shift-Reduce Parsing Table");
          treeCanvas = new TreeCanvas((int) (TREE_WIDTH * 1100), (int) (TREE_HEIGHT * 1100), "SR Parse Tree");
-         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * 1100), (int) (TRACE_HEIGHT * 1100),"SR Trace Stack");
-         
+         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * 1100), (int) (TRACE_HEIGHT * 1100), "SR Trace Stack");
+
          parseDisplay = new ParseDisplay(treeCanvas, prgTableCanvas, traceCanvas);
          parser = new SRParser(grammar, srTab, scanner, parseDisplay);
 
          GridBagLayout layout = new GridBagLayout();
          this.setLayout(layout);
          GridBagConstraints c = new GridBagConstraints();
-   
+
          c.gridx = 0;
          c.gridy = 5;
          c.weightx = 100;
@@ -667,7 +673,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.NORTH;
          layout.setConstraints(treeCanvas.getComponent(), c);
          add(treeCanvas.getComponent());
-         
+
          c.gridx = 0;
          c.gridy = 50;
          c.weightx = 100;
@@ -678,7 +684,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.SOUTHWEST;
          layout.setConstraints(prgTableCanvas.getComponent(), c);
          add(prgTableCanvas.getComponent());
-   
+
          c.gridx = 55;
          c.gridy = 50;
          c.weightx = 100;
@@ -700,7 +706,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(updateButton, c);
          add(updateButton);
-   
+
          c.gridx = 10;
          c.gridy = 95;
          c.weightx = 100;
@@ -710,7 +716,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(inputField, c);
          add(inputField);
-   
+
          c.gridx = 70;
          c.gridy = 95;
          c.weightx = 0;
@@ -721,7 +727,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(startStepButton, c);
          add(startStepButton);
-   
+
          c.gridx = 80;
          c.gridy = 95;
          c.weightx = 0;
@@ -732,7 +738,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(runStopButton, c);
          add(runStopButton);
-   
+
          c.gridx = 90;
          c.gridy = 95;
          c.weightx = 0;
@@ -743,7 +749,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.anchor = GridBagConstraints.WEST;
          layout.setConstraints(runDelayScrollbar, c);
          add(runDelayScrollbar);
-   
+
          c.gridx = 98;
          c.gridy = 95;
          c.weightx = 0;
@@ -751,11 +757,10 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          c.gridheight = 5;
          c.gridwidth = 8;
          c.fill = GridBagConstraints.NONE;
-   
+
          layout.setConstraints(menuBar, c);
          add(menuBar);
 
-         
          this.invalidate();
          this.validate();
 
@@ -765,6 +770,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       } else if (e.getSource() == updateButton) {
          doStart();
          parser.reset();
+         doStep();
       }
 
    }
@@ -812,9 +818,9 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
 
    static public void main(String args[]) {
 
-   ParsDemo app = new ParsDemo(1100, 1100,1);
-   app.doStart();
-   app.setVisible(true);
+      ParsDemo app = new ParsDemo(1100, 1100, 1);
+      app.doStart();
+      app.setVisible(true);
 
    }
 

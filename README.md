@@ -2,7 +2,7 @@
 
 This was originally a Java Applet written by professor Zerksis D. Umrigar to demonstrate parsing tokens with different context free grammars. I modified the code so it became a stand alone app, as Java Applets have become deprecated. I addition to implementing grammars of my own, I also added features such as being able to rerun parsings during runtime and being able to choose a grammar from a drop down menu.
 
-To use simply compile and run the main class in ParsDemo.Java.
+To use simply compile all files and run the main class in ParsDemo.Java.
 
 ## Windows Vs Linux
 

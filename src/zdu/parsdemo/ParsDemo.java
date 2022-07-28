@@ -42,7 +42,8 @@ import java.util.Scanner;
  * 
  * /**
  * Accepts a single argument specifying which algorithm to run.
- * While this was once an applet it has been converted to a stand alone app where
+ * While this was once an applet it has been converted to a stand alone app
+ * where
  * the user can select grammars to parse with a drop down menu.
  */
 public class ParsDemo extends JFrame implements Runnable, ActionListener, WindowListener {
@@ -446,6 +447,20 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    }
 
    static public void main(String args[]) {
+
+      try {
+         // Set System L&F
+         UIManager.setLookAndFeel(
+               UIManager.getSystemLookAndFeelClassName());
+      } catch (UnsupportedLookAndFeelException e) {
+         // handle exception
+      } catch (ClassNotFoundException e) {
+         // handle exception
+      } catch (InstantiationException e) {
+         // handle exception
+      } catch (IllegalAccessException e) {
+         // handle exception
+      }
 
       ParsDemo app = new ParsDemo(1);
       app.doStart();

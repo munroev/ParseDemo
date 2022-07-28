@@ -4,7 +4,7 @@ This was originally a Java Applet written by professor Zerksis D. Umrigar to dem
 
 To use simply compile and run the main class in ParsDemo.Java.
 
-##Windows Vs Linux
+## Windows Vs Linux
 
 Please note that while Java is often touted as a language you can "write once and run everywhere." The Java Swing library runs completely different in Windows and Linux. On top of that, this is almost 30 year old code. Your best bet is to run it in Linux, preferably Ubuntu.
 

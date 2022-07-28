@@ -8,6 +8,10 @@ To use simply compile and run the main class in ParsDemo.Java.
 
 Please note that while Java is often touted as a language you can "write once and run everywhere." The Java Swing library runs completely different in Windows and Linux. On top of that, this is almost 30 year old code. Your best bet is to run it in Linux, preferably Ubuntu.
 
+## New Features
+
+Live load Algorithms (7/28/22) : You can now live load Algorithms via drop down menu instead of restarting the program over and over.
+
 ## Folder Structure
 
 The workspace contains two folders by default, where:

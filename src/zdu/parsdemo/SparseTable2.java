@@ -66,23 +66,6 @@ class SparseTable2 extends Table2 {
     return vals.get(new RowCol(row, col));
   }
 
-  private Hashtable vals= new Hashtable();
-
-  public static void main(String[] args) {
-    String[] rows= { "Betty", "Jack", "Karen" };
-    String[] cols= { "AGE", "WEIGHT", "HEIGHT", "OCCUPATION" };
-    String[][] vals= {
-      { "32",	"120",	"5\' 7\"",	"executive" }, 
-      { "38",	"170",	"6\' 2\"",	"janitor" }, 
-      { "54",	"160",	"5\' 8\"",	"librarian" }
-    };
-    SparseTable2 tab= new SparseTable2(rows, cols);
-    for (int i= 0; i < rows.length; i++) {
-      for (int j= 0; j < cols.length; j++) {
-	tab.put(rows[i], cols[j], vals[i][j]);
-      }
-    }
-    System.out.print(tab.toString());
-  }
+  private Hashtable vals = new Hashtable();
 
 }

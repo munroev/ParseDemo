@@ -75,12 +75,11 @@ class TextCanvas extends ScrollableCanvas implements Selectable {
     hScroll.setUnitIncrement(fontMetrics.stringWidth("m"));
     hScroll.setBlockIncrement(visSize.width - SLOP);
     int h = fontMetrics.getHeight();
-    System.out.println("get model before: " + vScroll.getModel());
     vScroll.setValues((topLineN), visSize.height, 0,
         (nLines + 1) * h - visSize.height);
     vScroll.setUnitIncrement(fontMetrics.getHeight());
     vScroll.setBlockIncrement(visSize.height - SLOP);
-    System.out.println("get model after: " + vScroll.getModel());
+
     prgUpdate = false;
 
   }

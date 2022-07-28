@@ -30,17 +30,19 @@ import java.lang.ArrayIndexOutOfBoundsException;
 import java.io.*;
 import java.lang.InternalError;
 
-/** Abstract interface to a parser which can be stepped.  Meant to be
+/**
+ * Abstract interface to a parser which can be stepped. Meant to be
  * run in a separate thread.
  */
 
 abstract class StepParser implements Runnable {
 
-  public StepParser(Grammar grammar, Scanner scanner, 
-		    ParseDisplay parseDisplay) {
-    inParse= available= false;
-    this.grammar= grammar; this.scanner= scanner;
-    this.parseDisplay= parseDisplay;
+  public StepParser(Grammar grammar, Scanner scanner,
+      ParseDisplay parseDisplay) {
+    inParse = available = false;
+    this.grammar = grammar;
+    this.scanner = scanner;
+    this.parseDisplay = parseDisplay;
   }
 
   public StepParser(Grammar grammar, Scanner scanner) {
@@ -49,116 +51,112 @@ abstract class StepParser implements Runnable {
 
   public void run() {
     setInParse(true);
-    tok= scanner.nextTok();		//initialize lookahead token.
+    tok = scanner.nextTok(); // initialize lookahead token.
     try {
       parse();
-    }
-    catch (ParseResetException e) {
-//      System.err.println("Parse reset");
-    }      
-    catch (ParseException e) {
-//      System.err.println("Parse error");
-    }
-    finally {
+    } catch (ParseResetException e) {
+      // System.err.println("Parse reset");
+    } catch (ParseException e) {
+      // System.err.println("Parse error");
+    } finally {
       setInParse(false);
     }
   }
 
-  //Prevent more than 1 thread from using parser concurrently.
+  // Prevent more than 1 thread from using parser concurrently.
   public synchronized void setInParse(boolean cond) {
     while (inParse == cond) {
       try {
-	wait();
+        wait();
       } catch (InterruptedException e) {
       }
     }
-    inParse= cond;
-    if (cond) reset2();
+    inParse = cond;
+    if (cond)
+      reset2();
     notify();
   }
 
-
   public synchronized void reset() {
-    doReset= true;
+    doReset = true;
   }
 
   protected void reset2() {
-    doReset= available= didLastUpdate= false;
-    stk= new ParseStk(); forest= new OffsetForest();
+    doReset = available = didLastUpdate = false;
+    stk = new ParseStk();
+    forest = new OffsetForest();
   }
 
-  /** Step parser by 1 parse step.  
+  /**
+   * Step parser by 1 parse step.
    */
   public synchronized boolean step() {
     while (available == false) {
       try {
-	wait();
+        wait();
       } catch (InterruptedException e) {
       }
     }
-    available= false;
+    available = false;
     notify();
     return !didLastUpdate;
   }
-  
+
   protected abstract void parse() throws ParseException, ParseResetException;
 
   protected abstract void update() throws ParseException;
 
-  protected synchronized void waitToStep() 
-       throws ParseException, ParseResetException {
-    while (available == true  && !doReset) {
+  protected synchronized void waitToStep()
+      throws ParseException, ParseResetException {
+    while (available == true && !doReset) {
       try {
-	wait();
+        wait();
       } catch (InterruptedException e) {
       }
     }
     if (doReset) {
-      doReset= false;
+      doReset = false;
       throw new ParseResetException();
     }
-    boolean hadParseException= false;
+    boolean hadParseException = false;
     try {
       update();
-    }
-    catch (ParseException e) {
-      hadParseException= true;
-    }
-    finally {
+    } catch (ParseException e) {
+      hadParseException = true;
+    } finally {
       if (parseDisplay != null) {
-	parseDisplay.update(forest, xSelect, ySelect, treeSelect, 
-			    stk.toStringT(), 
-			    tok.getText() + scanner.restLine(), extFrameTag);
-      }
-      else {
-	record(forest, xSelect, ySelect, stk.toStringT() + " :: " + 
-	       tok.getText() + scanner.restLine());
+        parseDisplay.update(forest, xSelect, ySelect, treeSelect,
+            stk.toStringT(),
+            tok.getText() + scanner.restLine(), extFrameTag);
+      } else {
+        record(forest, xSelect, ySelect, stk.toStringT() + " :: " +
+            tok.getText() + scanner.restLine());
       }
     }
-    available= true;
+    available = true;
     notify();
-    if (hadParseException) throw new ParseException();
+    if (hadParseException)
+      throw new ParseException();
   }
-  
+
   private void record(OffsetForest forest, Object xSelect, Object ySelect,
-		      String trace) {
-    StringBuffer b= new StringBuffer();
+      String trace) {
+    StringBuffer b = new StringBuffer();
     try {
-      for (int i= 0; i < forest.size(); i++) {
-	b.append("Tree(" + i + ")=\n");
-	b.append(((Tree)(forest.elementAt(i))).treeString() + "\n");
+      for (int i = 0; i < forest.size(); i++) {
+        b.append("Tree(" + i + ")=\n");
+        b.append(((Tree) (forest.elementAt(i))).treeString() + "\n");
       }
-    }
-    catch (ArrayIndexOutOfBoundsException e) {
+    } catch (ArrayIndexOutOfBoundsException e) {
       throw new InternalError("empty forest in StepParser");
     }
     b.append("Select= (" + xSelect + ", " + ySelect + ")\n");
     b.append(trace + "\n");
-    log= b.toString();
+    log = b.toString();
   }
 
-  protected Scanner scanner= null;
-  protected Token tok= null;
+  protected Scanner scanner = null;
+  protected Token tok = null;
   protected ParseStk stk;
   protected OffsetForest forest;
   protected Grammar grammar;
@@ -167,96 +165,93 @@ abstract class StepParser implements Runnable {
   protected OffsetTree treeSelect;
   protected String extFrameTag;
   protected boolean didLastUpdate;
-  private String log;			//log last step when no parseDisplay.
-  private boolean doReset= false;
-  private boolean inParse= false;
-  private boolean available= false;
-  private ParseDisplay parseDisplay= null;
+  private String log; // log last step when no parseDisplay.
+  private boolean doReset = false;
+  private boolean inParse = false;
+  private boolean available = false;
+  private ParseDisplay parseDisplay = null;
 
-  //cannot handle parse errors.
-  public static void main(String[] args)
-  {
-    String input= "a:= 1";
-    int algN= 0;
-    int nAlgs= 2;
+  // cannot handle parse errors.
+  public static void main(String[] args) {
+    String input = "a:= 1";
+    int algN = 0;
+    int nAlgs = 2;
     switch (args.length) {
       case 0:
-	break;
+        break;
       case 1:
-	try {
-	  algN= Integer.parseInt(args[0]);
-	} 
-	catch (NumberFormatException e) {
-	  algN= 0; input= args[0];
-	}
-	break;
+        try {
+          algN = Integer.parseInt(args[0]);
+        } catch (NumberFormatException e) {
+          algN = 0;
+          input = args[0];
+        }
+        break;
       case 2:
-	try {
-	  algN= Integer.parseInt(args[0]);
-	  input= args[1];
-	} 
-	catch (NumberFormatException e) {
-	  System.err.println("usage: StepParser [algN] [input]");
-	  System.exit(1);
-	}
-	break;
-      default: 
-	System.err.println("usage: StepParser [algN] [input]");
-	System.exit(1);
-	break;
+        try {
+          algN = Integer.parseInt(args[0]);
+          input = args[1];
+        } catch (NumberFormatException e) {
+          System.err.println("usage: StepParser [algN] [input]");
+          System.exit(1);
+        }
+        break;
+      default:
+        System.err.println("usage: StepParser [algN] [input]");
+        System.exit(1);
+        break;
     }
-    ExtendedScanner scanner= new ExtendedScanner();
-    StepParser parser= null;
+    ExtendedScanner scanner = new ExtendedScanner();
+    StepParser parser = null;
     switch (algN) {
       case 0: {
-       ExtendedLL1Gram grammar= new ExtendedLL1Gram();
-	parser= new ExtendedRecDescent(grammar, scanner);
-	break;
+        ExtendedLL1Gram grammar = new ExtendedLL1Gram();
+        parser = new ExtendedRecDescent(grammar, scanner);
+        break;
       }
       case 1: {
-        ExtendedLL1Gram grammar= new ExtendedLL1Gram();
-	parser= new LL1Parser(grammar, new ExtendedLL1Table(grammar), scanner);
-	break;
+        ExtendedLL1Gram grammar = new ExtendedLL1Gram();
+        parser = new LL1Parser(grammar, new ExtendedLL1Table(grammar), scanner);
+        break;
       }
       case 2: {
-        ExtendedSRGram grammar= new ExtendedSRGram();
-	parser= new SRParser(grammar, new ExtendedSRTable(grammar), scanner);
-	break;
+        ExtendedSRGram grammar = new ExtendedSRGram();
+        parser = new SRParser(grammar, new ExtendedSRTable(grammar), scanner);
+        break;
       }
       default:
-	System.err.println("illegal algorithm # (0: rec-descent; 1: LL(1))");
-	System.exit(1);
+        System.err.println("illegal algorithm # (0: rec-descent; 1: LL(1))");
+        System.exit(1);
     }
     scanner.reset(input);
-    Thread parserThread= new Thread(parser, "Parser");
-    DataInputStream in= new DataInputStream(System.in);
+    Thread parserThread = new Thread(parser, "Parser");
+    DataInputStream in = new DataInputStream(System.in);
     parserThread.start();
-    boolean continueParse= true;
+    boolean continueParse = true;
     do {
-      System.out.print("Step? "); System.out.flush();
+      System.out.print("Step? ");
+      System.out.flush();
       try {
         if (in.readLine().length() > 1) {
-          parser.reset(); break;
+          parser.reset();
+          break;
         }
-      }
-      catch(EOFException e) {
+      } catch (EOFException e) {
         System.err.println("EOF exception in SimpCompRecDescent.main");
-      }
-      catch(IOException e) {
+      } catch (IOException e) {
         System.err.println("I/O exception in SimpCompRecDescent.main");
       }
-      continueParse= parser.step();
+      continueParse = parser.step();
       System.out.println(parser.log);
     } while (continueParse);
-    System.out.println("Parser is " + 
-	               (parserThread.isAlive() ? "alive" : "dead"));
+    System.out.println("Parser is " +
+        (parserThread.isAlive() ? "alive" : "dead"));
     try {
       Thread.currentThread().sleep(2000);
+    } catch (InterruptedException e) {
     }
-    catch(InterruptedException e) {
-    }
-    System.out.println("Parser is " + 
-	               (parserThread.isAlive() ? "alive" : "dead"));
+    System.out.println("Parser is " +
+        (parserThread.isAlive() ? "alive" : "dead"));
   }
-  
-  }
+
+}

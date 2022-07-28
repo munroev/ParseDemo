@@ -173,7 +173,7 @@ class ScrollableCanvas extends JPanel implements Runnable, MouseListener {
 
    public void mouseClicked(MouseEvent e) {
 
-      System.out.println("Mouse clicked");
+     
 
    }
 

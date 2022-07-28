@@ -47,13 +47,10 @@ import java.util.Scanner;
  */
 public class ParsDemo extends JFrame implements Runnable, ActionListener, WindowListener {
 
-   public ParsDemo(int width, int height, int alg) {
+   public ParsDemo(int alg) {
 
-      this.setSize(width, height);
-      int w = width;
-      int h = height;
+      this.setSize(WIDTH, HEIGHT);
 
-      algorithm = alg;
       menuBar = new JMenuBar();
       fileMenu = new JMenu("Algorithm");
 
@@ -75,64 +72,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
 
       super.setFont(font);
 
-      scanner = new ExtendedScanner();
-
-      if (algorithm == REC_DESCENT_PARSER) {
-         InputStream i = System.in;
-
-         try {
-            i = new FileInputStream(fName);
-         } catch (IOException e) {
-            System.err.println("Could not open file " + fName);
-            System.exit(1);
-         }
-         scanner = new ExtendedScanner();
-
-         BufferedReader d = new BufferedReader(new InputStreamReader(i));
-
-         prgTableCanvas = new FileCanvas(d, (int) (SELECT_WIDTH * w), (int) (SELECT_HEIGHT * h),
-               "Recursive-Descent Parsing Program");
-         treeCanvas = new TreeCanvas((int) (TREE_WIDTH * w), (int) (TREE_HEIGHT * h), "Recursive Descent Parse Tree");
-         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * w), (int) (TRACE_HEIGHT * h),
-               "Recursive Descent Trace Stack");
-
-         ExtendedLL1Gram grammar = new ExtendedLL1Gram();
-
-         parseDisplay = new ParseDisplay(treeCanvas, prgTableCanvas, traceCanvas);
-         parser = new ExtendedRecDescent(grammar, scanner, parseDisplay);
-         this.setTitle("Recursive Descent Parser");
-
-      } else if (algorithm == LL_PARSER) {
-
-         ExtendedLL1Gram grammar = new ExtendedLL1Gram();
-         Table2 llTab = new ExtendedLL1Table(grammar);
-         prgTableCanvas = new Table2Canvas(llTab,
-               (int) (SELECT_WIDTH * w), (int) (SELECT_HEIGHT * h),
-               "LL(1) Parsing Table");
-         treeCanvas = new TreeCanvas((int) (TREE_WIDTH * w), (int) (TREE_HEIGHT * h), "LL1 Parse Tree");
-         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * w), (int) (TRACE_HEIGHT * h), "LL1 Trace Stack");
-
-         parseDisplay = new ParseDisplay(treeCanvas, prgTableCanvas, traceCanvas);
-         parser = new LL1Parser(grammar, llTab, scanner, parseDisplay);
-         this.setTitle("LL1 Parser");
-
-      } else if (algorithm == SR_PARSER) {
-
-         ExtendedSRGram grammar = new ExtendedSRGram();
-         SRTable srTab = new ExtendedSRTable(grammar);
-         prgTableCanvas = new Table2Canvas(srTab,
-               (int) (SELECT_WIDTH * w), (int) (SELECT_HEIGHT * h),
-               "Shift-Reduce Parsing Table");
-         treeCanvas = new TreeCanvas((int) (TREE_WIDTH * w), (int) (TREE_HEIGHT * h), "SR Parse Tree");
-         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * w), (int) (TRACE_HEIGHT * h), "SR Trace Stack");
-
-         parseDisplay = new ParseDisplay(treeCanvas, prgTableCanvas, traceCanvas);
-         parser = new SRParser(grammar, srTab, scanner, parseDisplay);
-         this.setTitle("SR Parser");
-
-      } else {
-         System.out.print("Error No algorithm specified.\n");
-      }
+      setGrammar(alg);
 
       addWindowListener(this);
       updateButton = new JButton("update");
@@ -142,9 +82,200 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       startStepButton.addActionListener(this);
       runStopButton = new JButton("run");
       runStopButton.addActionListener(this);
-
       runDelayScrollbar = new JScrollBar(JScrollBar.HORIZONTAL, 10, 1, 7, 13);
       updateRunDelay();
+
+      setComponents();
+
+   }
+
+   public void paint(Graphics g) {
+   }
+
+   private void updateRunDelay() {
+      runDelay = 1000 * (1 << 10) / (1 << runDelayScrollbar.getValue());
+   }
+
+   private void doRun() {
+      startStepButton.setEnabled(false);
+      runStopButton.setText("stop");
+      if (!isStarted)
+         doStart();
+      Thread loopThread = new Thread(this);
+      loopThread.start();
+   }
+
+   public void run() {
+      if (Thread.currentThread() == flashThread) {
+         doFlash();
+      } else {
+         doLoop();
+      }
+   }
+
+   void doLoop() {
+      do {
+         try {
+            Thread.sleep(runDelay);
+         } catch (InterruptedException e) {
+         }
+         doStep();
+      } while (isStarted && runStopButton.getText().equals("stop"));
+      startStepButton.setEnabled(true);
+      startStepButton.setText("start");
+      runStopButton.setText("run");
+
+   }
+
+   void doFlash() {
+      startStepButton.setEnabled(false);
+      runStopButton.setEnabled(false);
+
+      for (int i = 0; i < N_FLASH; i++) {
+         try {
+
+            startStepButton.setEnabled(false);
+            ;
+            repaint();
+            Thread.sleep(FLASH_DELAY);
+            startStepButton.setEnabled(false);
+            repaint();
+            Thread.sleep(FLASH_DELAY);
+         } catch (InterruptedException e) {
+         }
+      }
+      startStepButton.setEnabled(true);
+      runStopButton.setEnabled(true);
+      ;
+   }
+
+   private void doStart() {
+      if (isStarted) {
+         parser.reset();
+         prgTableCanvas.reset();
+
+      }
+      startStepButton.setText("step");
+      parseDisplay.reset();
+      scanner.reset(inputField.getText());
+      isStarted = true;
+      runStopButton.setEnabled(true);
+      parserThread = new Thread(parser, "Parser");
+      parserThread.start();
+   }
+
+   private void doStop() {
+      runStopButton.setText("run");
+   }
+
+   private void doStep() {
+      isStarted = parser.step();
+      if (!isStarted) {
+         flashThread = new Thread(this);
+         flashThread.start();
+      }
+   }
+
+   public void actionPerformed(ActionEvent e) {
+      if (e.getSource() == startStepButton && startStepButton.getText().equals("step")) {
+         doStep();
+      } else if (e.getSource() == startStepButton && startStepButton.getText().equals("start")) {
+         doStart();
+      } else if (e.getSource() == runStopButton && runStopButton.getText().equals("run")) {
+         doRun();
+      } else if (e.getSource() == runStopButton && runStopButton.getText().equals("stop")) {
+         doStop();
+      } else if (e.getSource() == Rec) {
+
+         removeComponents();
+         setGrammar(REC_DESCENT_PARSER);
+         setComponents();
+         doStart();
+
+      } else if (e.getSource() == LL) {
+
+         removeComponents();
+         setGrammar(LL_PARSER);
+         setComponents();
+         doStart();
+
+      } else if (e.getSource() == SR) {
+
+         removeComponents();
+         setGrammar(SR_PARSER);
+         setComponents();
+         doStart();
+
+      } else if (e.getSource() == updateButton) {
+
+         doStart();
+         parser.reset();
+         doStep();
+      }
+
+   }
+
+   public void windowClosing(WindowEvent e) {
+      System.exit(0);
+
+   }
+
+   public void windowClosed(WindowEvent e) {
+
+   }
+
+   public void windowOpened(WindowEvent e) {
+
+   }
+
+   public void windowIconified(WindowEvent e) {
+
+   }
+
+   public void windowDeiconified(WindowEvent e) {
+
+   }
+
+   public void windowActivated(WindowEvent e) {
+
+   }
+
+   public void windowDeactivated(WindowEvent e) {
+
+   }
+
+   public void windowGainedFocus(WindowEvent e) {
+
+   }
+
+   public void windowLostFocus(WindowEvent e) {
+
+   }
+
+   public void windowStateChanged(WindowEvent e) {
+
+   }
+
+   private void removeComponents() {
+
+      this.getContentPane().remove(treeCanvas.getComponent());
+      this.getContentPane().remove(traceCanvas.getComponent());
+      this.getContentPane().remove(prgTableCanvas.getComponent());
+
+      this.getContentPane().remove(updateButton);
+      this.getContentPane().remove(inputField);
+      this.getContentPane().remove(startStepButton);
+
+      this.getContentPane().remove(runStopButton);
+      this.getContentPane().remove(runDelayScrollbar);
+      this.getContentPane().remove(menuBar);
+      this.getContentPane().remove(menuBar);
+
+      this.invalidate();
+      this.validate();
+   }
+
+   private void setComponents() {
 
       GridBagLayout layout = new GridBagLayout();
       this.setLayout(layout);
@@ -248,127 +379,19 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       layout.setConstraints(menuBar, c);
       add(menuBar);
 
+      this.invalidate();
+      this.validate();
    }
 
-   public void paint(Graphics g) {
-   }
+   private void setGrammar(int algorithm) {
+      scanner = new ExtendedScanner();
 
-   private void updateRunDelay() {
-      runDelay = 1000 * (1 << 10) / (1 << runDelayScrollbar.getValue());
-   }
-
-   private void doRun() {
-      startStepButton.setEnabled(false);
-      runStopButton.setText("stop");
-      if (!isStarted)
-         doStart();
-      Thread loopThread = new Thread(this);
-      loopThread.start();
-   }
-
-   public void run() {
-      if (Thread.currentThread() == flashThread) {
-         doFlash();
-      } else {
-         doLoop();
-      }
-   }
-
-   void doLoop() {
-      do {
-         try {
-            Thread.sleep(runDelay);
-         } catch (InterruptedException e) {
-         }
-         doStep();
-      } while (isStarted && runStopButton.getText().equals("stop"));
-      startStepButton.setEnabled(true);
-      startStepButton.setText("start");
-      runStopButton.setText("run");
-
-   }
-
-   void doFlash() {
-      startStepButton.setEnabled(false);
-      runStopButton.setEnabled(false);
-
-      for (int i = 0; i < N_FLASH; i++) {
-         try {
-
-            startStepButton.setEnabled(false);
-            ;
-            repaint();
-            Thread.sleep(FLASH_DELAY);
-            startStepButton.setEnabled(false);
-            repaint();
-            Thread.sleep(FLASH_DELAY);
-         } catch (InterruptedException e) {
-         }
-      }
-      startStepButton.setEnabled(true);
-      runStopButton.setEnabled(true);
-      ;
-   }
-
-   private void doStart() {
-      if (isStarted) {
-         parser.reset();
-         prgTableCanvas.reset();
-
-      }
-      startStepButton.setText("step");
-      parseDisplay.reset();
-      scanner.reset(inputField.getText());
-      isStarted = true;
-      runStopButton.setEnabled(true);
-      parserThread = new Thread(parser, "Parser");
-      parserThread.start();
-   }
-
-   private void doStop() {
-      runStopButton.setText("run");
-   }
-
-   private void doStep() {
-      isStarted = parser.step();
-      if (!isStarted) {
-         flashThread = new Thread(this);
-         flashThread.start();
-      }
-   }
-
-   public void actionPerformed(ActionEvent e) {
-      if (e.getSource() == startStepButton && startStepButton.getText().equals("step")) {
-         doStep();
-      } else if (e.getSource() == startStepButton && startStepButton.getText().equals("start")) {
-         doStart();
-      } else if (e.getSource() == runStopButton && runStopButton.getText().equals("run")) {
-         doRun();
-      } else if (e.getSource() == runStopButton && runStopButton.getText().equals("stop")) {
-         doStop();
-      } else if (e.getSource() == Rec) {
-
-         this.getContentPane().remove(treeCanvas.getComponent());
-         this.getContentPane().remove(traceCanvas.getComponent());
-         this.getContentPane().remove(prgTableCanvas.getComponent());
-
-         this.getContentPane().remove(updateButton);
-         this.getContentPane().remove(inputField);
-         this.getContentPane().remove(startStepButton);
-
-         this.getContentPane().remove(runStopButton);
-         this.getContentPane().remove(runDelayScrollbar);
-         this.getContentPane().remove(menuBar);
-         this.getContentPane().remove(menuBar);
-
-         this.invalidate();
-         this.validate();
-
+      if (algorithm == REC_DESCENT_PARSER) {
          InputStream i = System.in;
 
          try {
             i = new FileInputStream(fName);
-         } catch (IOException ex) {
+         } catch (IOException e) {
             System.err.println("Could not open file " + fName);
             System.exit(1);
          }
@@ -376,455 +399,60 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
 
          BufferedReader d = new BufferedReader(new InputStreamReader(i));
 
-         prgTableCanvas = new FileCanvas(d, (int) (SELECT_WIDTH * 1100), (int) (SELECT_HEIGHT * 1100),
+         prgTableCanvas = new FileCanvas(d, (int) (SELECT_WIDTH * WIDTH), (int) (SELECT_HEIGHT * HEIGHT),
                "Recursive-Descent Parsing Program");
-         treeCanvas = new TreeCanvas((int) (TREE_WIDTH * 1100), (int) (TREE_HEIGHT * 1100),
+         treeCanvas = new TreeCanvas((int) (TREE_WIDTH * WIDTH), (int) (TREE_HEIGHT * HEIGHT),
                "Recursive Descent Parse Tree");
-         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * 1100), (int) (TRACE_HEIGHT * 1100),
+         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * WIDTH), (int) (TRACE_HEIGHT * HEIGHT),
                "Recursive Descent Trace Stack");
 
          ExtendedLL1Gram grammar = new ExtendedLL1Gram();
 
          parseDisplay = new ParseDisplay(treeCanvas, prgTableCanvas, traceCanvas);
          parser = new ExtendedRecDescent(grammar, scanner, parseDisplay);
-
-         GridBagLayout layout = new GridBagLayout();
-         this.setLayout(layout);
-         GridBagConstraints c = new GridBagConstraints();
-
-         c.gridx = 0;
-         c.gridy = 5;
-         c.weightx = 100;
-         c.weighty = 100;
-         c.gridheight = 100;
-         c.gridwidth = GridBagConstraints.REMAINDER;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.NORTH;
-         layout.setConstraints(treeCanvas.getComponent(), c);
-         add(treeCanvas.getComponent());
-
-         c.gridx = 0;
-         c.gridy = 50;
-         c.weightx = 100;
-         c.weighty = 100;
-         c.gridheight = 40;
-         c.gridwidth = 50;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.SOUTHWEST;
-         layout.setConstraints(prgTableCanvas.getComponent(), c);
-         add(prgTableCanvas.getComponent());
-
-         c.gridx = 55;
-         c.gridy = 50;
-         c.weightx = 100;
-         c.weighty = 100;
-         c.gridheight = 40;
-         c.gridwidth = GridBagConstraints.REMAINDER;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.SOUTHEAST;
-         layout.setConstraints(traceCanvas.getComponent(), c);
-         add(traceCanvas.getComponent());
-
-         c.gridx = 0;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.NONE;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(updateButton, c);
-         add(updateButton);
-
-         c.gridx = 10;
-         c.gridy = 95;
-         c.weightx = 100;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 65;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(inputField, c);
-         add(inputField);
-
-         c.gridx = 70;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.NONE;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(startStepButton, c);
-         add(startStepButton);
-
-         c.gridx = 80;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.NONE;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(runStopButton, c);
-         add(runStopButton);
-
-         c.gridx = 90;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(runDelayScrollbar, c);
-         add(runDelayScrollbar);
-
-         c.gridx = 98;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.NONE;
-
-         layout.setConstraints(menuBar, c);
-         add(menuBar);
-
-         this.invalidate();
-         this.validate();
          this.setTitle("Recursive Descent Parser");
-         doStart();
 
-      } else if (e.getSource() == LL) {
+      } else if (algorithm == LL_PARSER) {
 
-         this.getContentPane().remove(treeCanvas.getComponent());
-         this.getContentPane().remove(traceCanvas.getComponent());
-         this.getContentPane().remove(prgTableCanvas.getComponent());
-
-         this.getContentPane().remove(updateButton);
-         this.getContentPane().remove(inputField);
-         this.getContentPane().remove(startStepButton);
-
-         this.getContentPane().remove(runStopButton);
-         this.getContentPane().remove(runDelayScrollbar);
-         this.getContentPane().remove(menuBar);
-         this.getContentPane().remove(menuBar);
-
-         this.invalidate();
-         this.validate();
          ExtendedLL1Gram grammar = new ExtendedLL1Gram();
          Table2 llTab = new ExtendedLL1Table(grammar);
          prgTableCanvas = new Table2Canvas(llTab,
-               (int) (SELECT_WIDTH * 1100), (int) (SELECT_HEIGHT * 1100),
+               (int) (SELECT_WIDTH * WIDTH), (int) (SELECT_HEIGHT * HEIGHT),
                "LL(1) Parsing Table");
-         treeCanvas = new TreeCanvas((int) (TREE_WIDTH * 1100), (int) (TREE_HEIGHT * 1100), "LL1 Parse Tree");
-         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * 1100), (int) (TRACE_HEIGHT * 1100), "LL1 Trace Stack");
+         treeCanvas = new TreeCanvas((int) (TREE_WIDTH * WIDTH), (int) (TREE_HEIGHT * HEIGHT), "LL1 Parse Tree");
+         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * WIDTH), (int) (TRACE_HEIGHT * HEIGHT), "LL1 Trace Stack");
 
          parseDisplay = new ParseDisplay(treeCanvas, prgTableCanvas, traceCanvas);
          parser = new LL1Parser(grammar, llTab, scanner, parseDisplay);
-
-         GridBagLayout layout = new GridBagLayout();
-         this.setLayout(layout);
-         GridBagConstraints c = new GridBagConstraints();
-
-         c.gridx = 0;
-         c.gridy = 5;
-         c.weightx = 100;
-         c.weighty = 100;
-         c.gridheight = 100;
-         c.gridwidth = GridBagConstraints.REMAINDER;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.NORTH;
-         layout.setConstraints(treeCanvas.getComponent(), c);
-         add(treeCanvas.getComponent());
-
-         c.gridx = 0;
-         c.gridy = 50;
-         c.weightx = 100;
-         c.weighty = 100;
-         c.gridheight = 40;
-         c.gridwidth = 50;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.SOUTHWEST;
-         layout.setConstraints(prgTableCanvas.getComponent(), c);
-         add(prgTableCanvas.getComponent());
-
-         c.gridx = 55;
-         c.gridy = 50;
-         c.weightx = 100;
-         c.weighty = 100;
-         c.gridheight = 40;
-         c.gridwidth = GridBagConstraints.REMAINDER;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.SOUTHEAST;
-         layout.setConstraints(traceCanvas.getComponent(), c);
-         add(traceCanvas.getComponent());
-
-         c.gridx = 0;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.NONE;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(updateButton, c);
-         add(updateButton);
-
-         c.gridx = 10;
-         c.gridy = 95;
-         c.weightx = 100;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 65;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(inputField, c);
-         add(inputField);
-
-         c.gridx = 70;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.NONE;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(startStepButton, c);
-         add(startStepButton);
-
-         c.gridx = 80;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.NONE;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(runStopButton, c);
-         add(runStopButton);
-
-         c.gridx = 90;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(runDelayScrollbar, c);
-         add(runDelayScrollbar);
-
-         c.gridx = 98;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.NONE;
-
-         layout.setConstraints(menuBar, c);
-         add(menuBar);
-
-         this.invalidate();
-         this.validate();
          this.setTitle("LL1 Parser");
-         doStart();
 
-      } else if (e.getSource() == SR) {
-
-         this.getContentPane().remove(treeCanvas.getComponent());
-         this.getContentPane().remove(traceCanvas.getComponent());
-         this.getContentPane().remove(prgTableCanvas.getComponent());
-
-         this.getContentPane().remove(updateButton);
-         this.getContentPane().remove(inputField);
-         this.getContentPane().remove(startStepButton);
-
-         this.getContentPane().remove(runStopButton);
-         this.getContentPane().remove(runDelayScrollbar);
-         this.getContentPane().remove(menuBar);
-         this.getContentPane().remove(menuBar);
-
-         this.invalidate();
-         this.validate();
+      } else if (algorithm == SR_PARSER) {
 
          ExtendedSRGram grammar = new ExtendedSRGram();
          SRTable srTab = new ExtendedSRTable(grammar);
          prgTableCanvas = new Table2Canvas(srTab,
-               (int) (SELECT_WIDTH * 1100), (int) (SELECT_HEIGHT * 1100),
+               (int) (SELECT_WIDTH * WIDTH), (int) (SELECT_HEIGHT * HEIGHT),
                "Shift-Reduce Parsing Table");
-         treeCanvas = new TreeCanvas((int) (TREE_WIDTH * 1100), (int) (TREE_HEIGHT * 1100), "SR Parse Tree");
-         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * 1100), (int) (TRACE_HEIGHT * 1100), "SR Trace Stack");
+         treeCanvas = new TreeCanvas((int) (TREE_WIDTH * WIDTH), (int) (TREE_HEIGHT * HEIGHT), "SR Parse Tree");
+         traceCanvas = new TraceCanvas((int) (TRACE_WIDTH * WIDTH), (int) (TRACE_HEIGHT * HEIGHT), "SR Trace Stack");
 
          parseDisplay = new ParseDisplay(treeCanvas, prgTableCanvas, traceCanvas);
          parser = new SRParser(grammar, srTab, scanner, parseDisplay);
-
-         GridBagLayout layout = new GridBagLayout();
-         this.setLayout(layout);
-         GridBagConstraints c = new GridBagConstraints();
-
-         c.gridx = 0;
-         c.gridy = 5;
-         c.weightx = 100;
-         c.weighty = 100;
-         c.gridheight = 100;
-         c.gridwidth = GridBagConstraints.REMAINDER;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.NORTH;
-         layout.setConstraints(treeCanvas.getComponent(), c);
-         add(treeCanvas.getComponent());
-
-         c.gridx = 0;
-         c.gridy = 50;
-         c.weightx = 100;
-         c.weighty = 100;
-         c.gridheight = 40;
-         c.gridwidth = 50;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.SOUTHWEST;
-         layout.setConstraints(prgTableCanvas.getComponent(), c);
-         add(prgTableCanvas.getComponent());
-
-         c.gridx = 55;
-         c.gridy = 50;
-         c.weightx = 100;
-         c.weighty = 100;
-         c.gridheight = 40;
-         c.gridwidth = GridBagConstraints.REMAINDER;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.SOUTHEAST;
-         layout.setConstraints(traceCanvas.getComponent(), c);
-         add(traceCanvas.getComponent());
-
-         c.gridx = 0;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.NONE;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(updateButton, c);
-         add(updateButton);
-
-         c.gridx = 10;
-         c.gridy = 95;
-         c.weightx = 100;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 65;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(inputField, c);
-         add(inputField);
-
-         c.gridx = 70;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.NONE;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(startStepButton, c);
-         add(startStepButton);
-
-         c.gridx = 80;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.NONE;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(runStopButton, c);
-         add(runStopButton);
-
-         c.gridx = 90;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.WEST;
-         layout.setConstraints(runDelayScrollbar, c);
-         add(runDelayScrollbar);
-
-         c.gridx = 98;
-         c.gridy = 95;
-         c.weightx = 0;
-         c.weighty = 0;
-         c.gridheight = 5;
-         c.gridwidth = 8;
-         c.fill = GridBagConstraints.NONE;
-
-         layout.setConstraints(menuBar, c);
-         add(menuBar);
-
-         this.invalidate();
-         this.validate();
-
          this.setTitle("SR Parser");
-         doStart();
 
-      } else if (e.getSource() == updateButton) {
-         doStart();
-         parser.reset();
-         doStep();
+      } else {
+         System.out.print("Error No algorithm specified.\n");
       }
-
-   }
-
-   public void windowClosing(WindowEvent e) {
-      System.exit(0);
-
-   }
-
-   public void windowClosed(WindowEvent e) {
-
-   }
-
-   public void windowOpened(WindowEvent e) {
-
-   }
-
-   public void windowIconified(WindowEvent e) {
-
-   }
-
-   public void windowDeiconified(WindowEvent e) {
-
-   }
-
-   public void windowActivated(WindowEvent e) {
-
-   }
-
-   public void windowDeactivated(WindowEvent e) {
-
-   }
-
-   public void windowGainedFocus(WindowEvent e) {
-
-   }
-
-   public void windowLostFocus(WindowEvent e) {
-
-   }
-
-   public void windowStateChanged(WindowEvent e) {
-
    }
 
    static public void main(String args[]) {
 
-      ParsDemo app = new ParsDemo(1100, 1100, 1);
+      ParsDemo app = new ParsDemo(1);
       app.doStart();
       app.setVisible(true);
 
    }
 
-   private int algorithm = 0;
    private int runDelay;
    private ScrollableCanvas prgTableCanvas;
    private TreeCanvas treeCanvas;
@@ -856,4 +484,6 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private static final String INIT_INPUT = "Read A Read B sum := A+B Write sum Write sum/2";
    private static final int FLASH_DELAY = 1000;
    private static final int N_FLASH = 2;
+   private static final int HEIGHT = 1100;
+   private static final int WIDTH = 1100;
 }

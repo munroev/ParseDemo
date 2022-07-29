@@ -25,6 +25,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 
 /**
  * Implements a scrollable canvas with two scrollbars, which can be controlled
@@ -55,8 +57,30 @@ class ScrollableCanvas extends JPanel implements Runnable, MouseListener {
       vScroll = new JScrollBar(Scrollbar.VERTICAL, 0, 1, 0, height);
       vScroll.setUnitIncrement(height / 20 < 0 ? 0 : height / 20);
       vScroll.setBlockIncrement(height - SLOP < 1 ? height : height - SLOP);
+      
+      //These event listeners allow free scrolling independent of the parsing animation
+      hScroll.addAdjustmentListener(new AdjustmentListener() {
+         public void adjustmentValueChanged(AdjustmentEvent ae) {
+
+            repaint();
+            invalidate();
+            validate();
+
+         }
+      });
+
+      vScroll.addAdjustmentListener(new AdjustmentListener() {
+         public void adjustmentValueChanged(AdjustmentEvent ae) {
+
+            repaint();
+            invalidate();
+            validate();
+
+         }
+      });
 
       panel = new ScrollPanel(this, hScroll, vScroll);
+
       hintMsg = mouseHint;
       addMouseListener(this);
    }
@@ -172,8 +196,6 @@ class ScrollableCanvas extends JPanel implements Runnable, MouseListener {
    }
 
    public void mouseClicked(MouseEvent e) {
-
-     
 
    }
 

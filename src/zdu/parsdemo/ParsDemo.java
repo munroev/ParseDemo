@@ -42,8 +42,7 @@ import java.util.Scanner;
  * 
  * /**
  * Accepts a single argument specifying which algorithm to run.
- * While this was once an applet it has been converted to a stand alone app
- * where
+ * While this was once an applet it has been converted to a stand alone app where
  * the user can select grammars to parse with a drop down menu.
  */
 public class ParsDemo extends JFrame implements Runnable, ActionListener, WindowListener {
@@ -285,7 +284,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.gridx = 0;
       c.gridy = 5;
       c.weightx = 100;
-      c.weighty = 100;
+      c.weighty = 25;
       c.gridheight = 100;
       c.gridwidth = GridBagConstraints.REMAINDER;
       c.fill = GridBagConstraints.HORIZONTAL;
@@ -296,7 +295,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.gridx = 0;
       c.gridy = 50;
       c.weightx = 100;
-      c.weighty = 100;
+      c.weighty = 25;
       c.gridheight = 40;
       c.gridwidth = 50;
       c.fill = GridBagConstraints.HORIZONTAL;
@@ -307,7 +306,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.gridx = 55;
       c.gridy = 50;
       c.weightx = 100;
-      c.weighty = 100;
+      c.weighty = 25;
       c.gridheight = 40;
       c.gridwidth = GridBagConstraints.REMAINDER;
       c.fill = GridBagConstraints.HORIZONTAL;
@@ -321,7 +320,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.weighty = 0;
       c.gridheight = 5;
       c.gridwidth = 8;
-      c.fill = GridBagConstraints.NONE;
+      c.fill = GridBagConstraints.RELATIVE;
       c.anchor = GridBagConstraints.WEST;
       layout.setConstraints(updateButton, c);
       add(updateButton);
@@ -332,6 +331,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.weighty = 0;
       c.gridheight = 5;
       c.gridwidth = 65;
+      c.fill = GridBagConstraints.RELATIVE;
       c.anchor = GridBagConstraints.WEST;
       layout.setConstraints(inputField, c);
       add(inputField);
@@ -342,7 +342,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.weighty = 0;
       c.gridheight = 5;
       c.gridwidth = 8;
-      c.fill = GridBagConstraints.NONE;
+      c.fill = GridBagConstraints.RELATIVE;
       c.anchor = GridBagConstraints.WEST;
       layout.setConstraints(startStepButton, c);
       add(startStepButton);
@@ -353,7 +353,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.weighty = 0;
       c.gridheight = 5;
       c.gridwidth = 8;
-      c.fill = GridBagConstraints.NONE;
+      c.fill = GridBagConstraints.RELATIVE;
       c.anchor = GridBagConstraints.WEST;
       layout.setConstraints(runStopButton, c);
       add(runStopButton);
@@ -364,7 +364,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.weighty = 0;
       c.gridheight = 5;
       c.gridwidth = 8;
-      c.fill = GridBagConstraints.HORIZONTAL;
+      c.fill = GridBagConstraints.RELATIVE;
       c.anchor = GridBagConstraints.WEST;
       layout.setConstraints(runDelayScrollbar, c);
       add(runDelayScrollbar);
@@ -375,11 +375,10 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.weighty = 0;
       c.gridheight = 5;
       c.gridwidth = 8;
-      c.fill = GridBagConstraints.NONE;
-
+      c.fill = GridBagConstraints.RELATIVE;
+      c.anchor = GridBagConstraints.WEST;
       layout.setConstraints(menuBar, c);
       add(menuBar);
-
       this.invalidate();
       this.validate();
    }

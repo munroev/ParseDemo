@@ -20,7 +20,7 @@ Unstable Graphics : When starting up the app or resizing the window the graphics
 
 ## Proposed New Features
 
-- Having the program read in file input in addition to code from the text field.
+- Having the program read in file input in addition to a sentence to parse from the text field.
 - The ability to rewind a Parse with a Rewind Button.
 
 ## Folder Structure

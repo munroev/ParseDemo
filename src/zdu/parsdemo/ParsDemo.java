@@ -513,6 +513,6 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private static final String INIT_INPUT = "Read A Read B sum := A+B Write sum Write sum/2";
    private static final int FLASH_DELAY = 1000;
    private static final int N_FLASH = 2;
-   private static final int HEIGHT = 1000;
-   private static final int WIDTH = 1000;
+   private static final int HEIGHT = 1100;
+   private static final int WIDTH = 1100;
 }

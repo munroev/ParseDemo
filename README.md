@@ -10,7 +10,7 @@ Live load Algorithms (7/28/22) : You can now live load Algorithms via a drop dow
 
 Free Scrolling (7/29/22) : You can now click or drag the scrollbars without having to hover over the window to update the graphics. You can also do this while the parsing animation runs.
 
-Unstable Graphics Fixed (7/29/22) : The graphics have been fixed so they aren't unstable on start or or upon resizinf.
+Unstable Graphics Fixed (7/29/22) : The graphics have been fixed so they aren't unstable on start or or upon resizing.
 
 ## Bugs
 
@@ -20,6 +20,7 @@ Unstable Graphics Fixed (7/29/22) : The graphics have been fixed so they aren't 
 
 - Having the program read in file input in addition to a sentence to parse from the text field.
 - The ability to rewind a Parse with a Rewind Button.
+- Implement the ANSCI C Grammar for parsing C code sentences.
 
 ## Folder Structure
 

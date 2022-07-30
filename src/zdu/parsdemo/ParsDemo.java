@@ -464,8 +464,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
 
       try {
          // Set System L&F
-         UIManager.setLookAndFeel(
-               UIManager.getSystemLookAndFeelClassName());
+         UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
       } catch (UnsupportedLookAndFeelException e) {
          // handle exception
       } catch (ClassNotFoundException e) {

@@ -462,6 +462,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
 
    static public void main(String args[]) {
 
+     
+
       ParsDemo app = new ParsDemo(1);
       app.doStart();
       app.setVisible(true);

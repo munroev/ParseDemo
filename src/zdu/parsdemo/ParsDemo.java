@@ -462,18 +462,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
 
    static public void main(String args[]) {
 
-      try {
-         // Set System L&F
-         UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-      } catch (UnsupportedLookAndFeelException e) {
-         // handle exception
-      } catch (ClassNotFoundException e) {
-         // handle exception
-      } catch (InstantiationException e) {
-         // handle exception
-      } catch (IllegalAccessException e) {
-         // handle exception
-      }
+     
 
       ParsDemo app = new ParsDemo(1);
       app.doStart();
@@ -512,6 +501,6 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private static final String INIT_INPUT = "Read A Read B sum := A+B Write sum Write sum/2";
    private static final int FLASH_DELAY = 1000;
    private static final int N_FLASH = 2;
-   private static final int HEIGHT = 1100;
-   private static final int WIDTH = 1100;
+   private static final int HEIGHT = 1000;
+   private static final int WIDTH = 1000;
 }

@@ -1,7 +1,7 @@
 package zdu.parsdemo;
 import java.util.Hashtable;
 
-public class ANSCICScanner extends Scanner {
+public class ANSICScanner extends Scanner {
 
    
 
@@ -26,11 +26,67 @@ public class ANSCICScanner extends Scanner {
   static final int LESSER_TOK = 269;
   static final int GREATER_TOK = 270;
   static final int LIT_TOK = 271;
+  public static final int IDENTIFIER_TOK = 0;
+  public static final int CONSTANT_TOK = 0;
+public static final int STRING_LITERAL_TOK = 0;
+public static final int SIZEOF_TOK = 0;
+public static final int PTR_OP_TOK = 0;
+public static final int INC_OP_TOK = 0;
+public static final int DEC_OP_TOK = 0;
+public static final int LEFT_OP_TOK = 0;
+public static final int RIGHT_OP_TOK = 0;
+public static final int GE_OP_TOK = 0;
+public static final int LE_OP_TOK = 0;
+public static final int EQ_OP_TOK = 0;
+public static final int NE_OP_TOK = 0;
+public static final int AND_OP_TOK = 0;
+public static final int OR_OP_TOK = 0;
+public static final int MUL_ASSIGN_TOK = 0;
+public static final int DIV_ASSIGN_TOK = 0;
+public static final int MOD_ASSIGN_TOK = 0;
+public static final int ADD_ASSIGN_TOK = 0;
+public static final int SUB_ASSIGN_TOK = 0;
+public static final int LEFT_ASSIGN_TOK = 0;
+public static final int RIGHT_ASSIGN_TOK = 0;
+public static final int AND_ASSIGN_TOK = 0;
+public static final int XOR_ASSIGN_TOK = 0;
+public static final int OR_ASSIGN_TOK = 0;
+public static final int TYPEDEF_TOK = 0;
+public static final int EXTERN_TOK = 0;
+public static final int STATIC_TOK = 0;
+public static final int AUTO_TOK = 0;
+public static final int REGISTER_TOK = 0;
+public static final int VOID_TOK = 0;
+public static final int CHAR_TOK = 0;
+public static final int SHORT_TOK = 0;
+public static final int INT_TOK = 0;
+public static final int LONG_TOK = 0;
+public static final int FLOAT_TOK = 0;
+public static final int DOUBLE_TOK = 0;
+public static final int SIGNED_TOK = 0;
+public static final int UNSIGNED_TOK = 0;
+public static final int TYPE_NAME_TOK = 0;
+public static final int STRUCT_TOK = 0;
+public static final int UNION_TOK = 0;
+public static final int ENUM_TOK = 0;
+public static final int CONST_TOK = 0;
+public static final int VOLATILE_TOK = 0;
+public static final int ELLIPSIS_TOK = 0;
+public static final int CASE_TOK = 0;
+public static final int DEFAULT_TOK = 0;
+public static final int ELSE_TOK = 0;
+public static final int SWITCH_TOK = 0;
+public static final int DO_TOK = 0;
+public static final int FOR_TOK = 0;
+public static final int GOTO_TOK = 0;
+public static final int BREAK_TOK = 0;
+public static final int RETURN_TOK = 0;
+public static final int CONTINUE_TOK = 0;
 
   // Hashtable for storing reserved words and identifiers.
   private Hashtable ids = new Hashtable();
 
-  ANSCICScanner() {
+  ANSICScanner() {
     super();
     initIDs();
     initToks();

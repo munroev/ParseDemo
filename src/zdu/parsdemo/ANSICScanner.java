@@ -7,87 +7,73 @@ public class ANSICScanner extends Scanner {
   // Reserved word tokens.
   static private final int RESERVED_LO = 256; // Compound token #s > this.
   static private final int N_RESERVED = 2; // # of reserved words.
-  static final int DIV_TOK = RESERVED_LO; // 256
-  static final int MOD_TOK = DIV_TOK + 1;// 257
 
-  // Other compound tokens.
-  static final int ASSGN_TOK = RESERVED_LO + N_RESERVED;// 258
-  static final int ID_TOK = ASSGN_TOK + 1;// 259
-  static final int NUM_TOK = ID_TOK + 1;// 260
-  static final int READ_TOK = 261;
-  static final int WRITE_TOK = 262;
-  static final int IF_TOK = 263;
-  static final int END_TOK = 264;
-  static final int WHILE_TOK = 265;
-  static final int OD_TOK = 266;
-  static final int EQUALS_TOK = 267;
-  static final int NEQUALS_TOK = 268;
-  static final int LESSER_TOK = 269;
-  static final int GREATER_TOK = 270;
-  static final int LIT_TOK = 271;
-  public static final int IDENTIFIER_TOK = 0;
-  public static final int CONSTANT_TOK = 0;
-  public static final int STRING_LITERAL_TOK = 0;
-  public static final int SIZEOF_TOK = 0;
-  public static final int PTR_OP_TOK = 0;
-  public static final int INC_OP_TOK = 0;
-  public static final int DEC_OP_TOK = 0;
-  public static final int LEFT_OP_TOK = 0;
-  public static final int RIGHT_OP_TOK = 0;
-  public static final int GE_OP_TOK = 0;
-  public static final int LE_OP_TOK = 0;
-  public static final int EQ_OP_TOK = 0;
-  public static final int NE_OP_TOK = 0;
-  public static final int AND_OP_TOK = 0;
-  public static final int OR_OP_TOK = 0;
-  public static final int MUL_ASSIGN_TOK = 0;
-  public static final int DIV_ASSIGN_TOK = 0;
-  public static final int MOD_ASSIGN_TOK = 0;
-  public static final int ADD_ASSIGN_TOK = 0;
-  public static final int SUB_ASSIGN_TOK = 0;
-  public static final int LEFT_ASSIGN_TOK = 0;
-  public static final int RIGHT_ASSIGN_TOK = 0;
-  public static final int AND_ASSIGN_TOK = 0;
-  public static final int XOR_ASSIGN_TOK = 0;
-  public static final int OR_ASSIGN_TOK = 0;
-  public static final int TYPEDEF_TOK = 0;
-  public static final int EXTERN_TOK = 0;
-  public static final int STATIC_TOK = 0;
-  public static final int AUTO_TOK = 0;
-  public static final int REGISTER_TOK = 0;
-  public static final int VOID_TOK = 0;
-  public static final int CHAR_TOK = 0;
-  public static final int SHORT_TOK = 0;
-  public static final int INT_TOK = 0;
-  public static final int LONG_TOK = 0;
-  public static final int FLOAT_TOK = 0;
-  public static final int DOUBLE_TOK = 0;
-  public static final int SIGNED_TOK = 0;
-  public static final int UNSIGNED_TOK = 0;
-  public static final int TYPE_NAME_TOK = 0;
-  public static final int STRUCT_TOK = 0;
-  public static final int UNION_TOK = 0;
-  public static final int ENUM_TOK = 0;
-  public static final int CONST_TOK = 0;
-  public static final int VOLATILE_TOK = 0;
-  public static final int ELLIPSIS_TOK = 0;
-  public static final int CASE_TOK = 0;
-  public static final int DEFAULT_TOK = 0;
-  public static final int ELSE_TOK = 0;
-  public static final int SWITCH_TOK = 0;
-  public static final int DO_TOK = 0;
-  public static final int FOR_TOK = 0;
-  public static final int GOTO_TOK = 0;
-  public static final int BREAK_TOK = 0;
-  public static final int RETURN_TOK = 0;
-  public static final int CONTINUE_TOK = 0;
+// Other compound tokens.
+  public static final int IDENTIFIER_TOK = RESERVED_LO + N_RESERVED;// 258;
+  public static final int CONSTANT_TOK = 259;
+  public static final int STRING_LITERAL_TOK = 260;
+  public static final int SIZEOF_TOK = 261;
+  public static final int PTR_OP_TOK = 262;
+  public static final int INC_OP_TOK = 263;
+  public static final int DEC_OP_TOK = 264;
+  public static final int LEFT_OP_TOK = 265;
+  public static final int RIGHT_OP_TOK = 266;
+  public static final int GE_OP_TOK = 267;
+  public static final int LE_OP_TOK = 268;
+  public static final int EQ_OP_TOK = 269;
+  public static final int NE_OP_TOK = 270;
+  public static final int AND_OP_TOK = 271;
+  public static final int OR_OP_TOK = 272;
+  public static final int MUL_ASSIGN_TOK = 273;
+  public static final int DIV_ASSIGN_TOK = 274;
+  public static final int MOD_ASSIGN_TOK = 275;
+  public static final int ADD_ASSIGN_TOK = 276;
+  public static final int SUB_ASSIGN_TOK = 277;
+  public static final int LEFT_ASSIGN_TOK = 278;
+  public static final int RIGHT_ASSIGN_TOK = 279;
+  public static final int AND_ASSIGN_TOK = 280;
+  public static final int XOR_ASSIGN_TOK = 281;
+  public static final int OR_ASSIGN_TOK = 282;
+  public static final int TYPEDEF_TOK = 283;
+  public static final int EXTERN_TOK = 284;
+  public static final int STATIC_TOK = 285;
+  public static final int AUTO_TOK = 286;
+  public static final int REGISTER_TOK = 287;
+  public static final int VOID_TOK = 288;
+  public static final int CHAR_TOK = 289;
+  public static final int SHORT_TOK = 290;
+  public static final int INT_TOK = 291;
+  public static final int LONG_TOK = 292;
+  public static final int FLOAT_TOK = 293;
+  public static final int DOUBLE_TOK = 294;
+  public static final int SIGNED_TOK = 295;
+  public static final int UNSIGNED_TOK = 296;
+  public static final int TYPE_NAME_TOK = 297;
+  public static final int STRUCT_TOK = 298;
+  public static final int UNION_TOK = 299;
+  public static final int ENUM_TOK = 300;
+  public static final int CONST_TOK = 301;
+  public static final int VOLATILE_TOK = 302;
+  public static final int ELLIPSIS_TOK = 303;
+  public static final int CASE_TOK = 304;
+  public static final int DEFAULT_TOK = 305;
+  public static final int ELSE_TOK = 306;
+  public static final int SWITCH_TOK = 307;
+  public static final int DO_TOK = 308;
+  public static final int FOR_TOK = 309;
+  public static final int GOTO_TOK = 310;
+  public static final int BREAK_TOK = 311;
+  public static final int RETURN_TOK = 312;
+  public static final int CONTINUE_TOK = 313;
+  public static final int WHILE_TOK  = 314;
+  public static final int IF_TOK = 315;
 
   // Hashtable for storing reserved words and identifiers.
   private Hashtable ids = new Hashtable();
 
   ANSICScanner() {
     super();
-    initIDs();
+    //initIDs();
     initToks();
   }
 
@@ -158,7 +144,8 @@ public class ANSICScanner extends Scanner {
     addTok(CASE_TOK, "case");
     addTok(RETURN_TOK, "return");
     addTok(CONTINUE_TOK, "continue");
-
+    addTok(WHILE_TOK, "while");
+    addTok(IF_TOK, "if");
   }
 
   private void initIDs() {
@@ -180,7 +167,7 @@ public class ANSICScanner extends Scanner {
     if (id < N_RESERVED) {
       return id + RESERVED_LO;
     } else {
-      return ID_TOK;
+      return IDENTIFIER_TOK;
     }
   }
 
@@ -203,28 +190,28 @@ public class ANSICScanner extends Scanner {
           c = peek();
         } while (Character.isLetterOrDigit(c));
 
-        if (tokBuf.toString().equals("Read")) {
-
-          t = READ_TOK;
-          break;
-
-        } else if (tokBuf.toString().equals("Write")) {
-          t = WRITE_TOK;
-          break;
-
-        } else if (tokBuf.toString().equals("If")) {
+        if (tokBuf.toString().equals("if")) {
 
           t = IF_TOK;
           break;
+
+        } else if (tokBuf.toString().equals("do")) {
+          t = DO_TOK;
+          break;
+
+        } else if (tokBuf.toString().equals("else")) {
+
+          t = ELSE_TOK;
+          break;
         }
 
-        else if (tokBuf.toString().equals("While")) {
+        else if (tokBuf.toString().equals("while")) {
           t = WHILE_TOK;
           break;
 
-        } else if (tokBuf.toString().equals("End")) {
+        } else if (tokBuf.toString().equals("for")) {
 
-          t = END_TOK;
+          t = FOR_TOK;
           break;
 
         } else {
@@ -238,33 +225,33 @@ public class ANSICScanner extends Scanner {
           advance();
           c = peek();
         } while (Character.isDigit(c));
-        t = LIT_TOK;
+        t = STRING_LITERAL_TOK;
         break;
-      } else if (c == ':' && peek(1) == '=') {
-        tokBuf.append(":=");
+      } else if (c == '=' && peek(1) == '=') {
+        tokBuf.append("==");
         advance();
         advance();
-        t = ASSGN_TOK;
+        t = EQ_OP_TOK;
         break;
       }
 
-      else if (c == '<' && peek(1) == '>') {
+      else if (c == '!' && peek(1) == '=') {
         tokBuf.append("!=");
         advance();
         advance();
-        t = NEQUALS_TOK;
+        t = NE_OP_TOK;
         break;
       } else if (c == '<' && peek(1) == '=') {
         tokBuf.append("<=");
         advance();
         advance();
-        t = LESSER_TOK;
+        t = LE_OP_TOK;
         break;
       } else if (c == '>' && peek(1) == '=') {
         tokBuf.append(">=");
         advance();
         advance();
-        t = GREATER_TOK;
+        t = GE_OP_TOK;
         break;
       } else if (c == '#') {
         do {
@@ -281,5 +268,5 @@ public class ANSICScanner extends Scanner {
     setText(tokBuf.toString());
     return new Token(t, yytext);
   }
-
+  
 }

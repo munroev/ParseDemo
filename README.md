@@ -20,7 +20,7 @@ Unstable Graphics Fixed (7/29/22) : The graphics have been fixed so they aren't 
 
 - Having the program read in file input in addition to a sentence to parse from the text field.
 - The ability to rewind a Parse with a Rewind Button.
-- Implement an the ANSCI C Grammar(LALR(1)) for parsing C code.
+- Implement the ANSCI C Grammar(LALR(1)) for parsing C code.
 
 ## Folder Structure
 

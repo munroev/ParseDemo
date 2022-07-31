@@ -8,7 +8,7 @@ public class ANSICScanner extends Scanner {
   static private final int RESERVED_LO = 256; // Compound token #s > this.
   static private final int N_RESERVED = 2; // # of reserved words.
 
-// Other compound tokens.
+  // Other compound tokens.
   public static final int IDENTIFIER_TOK = RESERVED_LO + N_RESERVED;// 258;
   public static final int CONSTANT_TOK = 259;
   public static final int STRING_LITERAL_TOK = 260;
@@ -65,7 +65,7 @@ public class ANSICScanner extends Scanner {
   public static final int BREAK_TOK = 311;
   public static final int RETURN_TOK = 312;
   public static final int CONTINUE_TOK = 313;
-  public static final int WHILE_TOK  = 314;
+  public static final int WHILE_TOK = 314;
   public static final int IF_TOK = 315;
 
   // Hashtable for storing reserved words and identifiers.
@@ -73,7 +73,7 @@ public class ANSICScanner extends Scanner {
 
   ANSICScanner() {
     super();
-    //initIDs();
+    // initIDs();
     initToks();
   }
 
@@ -132,7 +132,6 @@ public class ANSICScanner extends Scanner {
     addTok(CONST_TOK, "const");
     addTok(VOLATILE_TOK, "volatile");
     addTok(ELLIPSIS_TOK, "...");
-    addTok(CASE_TOK, "case");
     addTok(DEFAULT_TOK, "default");
     addTok(ELSE_TOK, "else");
 
@@ -213,12 +212,159 @@ public class ANSICScanner extends Scanner {
 
           t = FOR_TOK;
           break;
+        }
+        else if(tokBuf.toString().equals("switch")){
 
-        } else {
+          t = SWITCH_TOK;
+          break;
+        
+        }
+        else if(tokBuf.toString().equals("goto"))
+        {
+          t = GOTO_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("break"))
+        {
+          t = BREAK_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("case"))
+        {
+          t = CASE_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("return"))
+        {
+          t = RETURN_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("continue"))
+        {
+          t = CONTINUE_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("typedef"))
+        {
+          t = TYPEDEF_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("extern"))
+        {
+          t = EXTERN_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("static"))
+        {
+          t = STATIC_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("auto"))
+        {
+          t = AUTO_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("register"))
+        {
+          t = REGISTER_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("void"))
+        {
+          t = VOID_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("char"))
+        {
+          t = CHAR_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("short"))
+        {
+          t = SHORT_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("int"))
+        {
+          t = INT_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("long"))
+        {
+          t = LONG_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("float"))
+        {
+          t = FLOAT_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("double"))
+        {
+          t = DOUBLE_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("signed"))
+        {
+          t = SIGNED_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("unsigned"))
+        {
+          t = UNSIGNED_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("type_name"))
+        {
+          t = TYPE_NAME_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("struct"))
+        {
+          t = STRUCT_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("union"))
+        {
+          t = UNION_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("enum"))
+        {
+          t = ENUM_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("const"))
+        {
+          t = CONSTANT_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("volatile"))
+        {
+          t = VOLATILE_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("..."))
+        {
+          t = ELLIPSIS_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("default"))
+        {
+          t = DEFAULT_TOK;
+          break;
+        }
+        else if(tokBuf.toString().equals("sizeof"))
+        {
+          t = SIZEOF_TOK;
+          break;
+        }
+         else {
 
           t = getIDTok(tokBuf.toString());
           break;
         }
+        
       } else if (Character.isDigit(c)) {
         do {
           tokBuf.append(c);
@@ -253,7 +399,134 @@ public class ANSICScanner extends Scanner {
         advance();
         t = GE_OP_TOK;
         break;
-      } else if (c == '#') {
+      } 
+      else if (c == '-' && peek(1) == '>') {
+        tokBuf.append("->");
+        advance();
+        advance();
+        t = PTR_OP_TOK;
+        break;
+      }
+      else if (c == '+' && peek(1) == '+') {
+        tokBuf.append("++");
+        advance();
+        advance();
+        t = INC_OP_TOK;
+        break;
+      }
+      else if (c == '-' && peek(1) == '-') {
+        tokBuf.append("<=");
+        advance();
+        advance();
+        t = DEC_OP_TOK;
+        break;
+      }
+      else if (c == '&' && peek(1) == '&') {
+        tokBuf.append("&&");
+        advance();
+        advance();
+        t = AND_OP_TOK;
+        break;
+      }
+      else if (c == '|' && peek(1) == '|') {
+        tokBuf.append("||");
+        advance();
+        advance();
+        t = OR_OP_TOK;
+        break;
+      }
+      else if (c == '<' && peek(1) == '<' && peek(2)!='=') {
+        tokBuf.append("<<");
+        advance();
+        advance();
+        t = LEFT_OP_TOK;
+        break;
+      }
+      else if (c == '>' && peek(1) == '>' && peek(2)!= '=') {
+        tokBuf.append(">>");
+        advance();
+        advance();
+        t = RIGHT_OP_TOK;
+        break;
+      }
+      else if (c == '<' && peek(1) == '<' && peek(2) =='=') {
+        tokBuf.append("<<=");
+        advance();
+        advance();
+        t = LEFT_ASSIGN_TOK;
+        break;
+      }
+      else if (c == '>' && peek(1) == '>' && peek(2) == '=') {
+        tokBuf.append(">>=");
+        advance();
+        advance();
+        t = RIGHT_ASSIGN_TOK;
+        break;
+      }
+      else if (c == '>' && peek(1) == '>' && peek(2)!= '=') {
+        tokBuf.append(">>");
+        advance();
+        advance();
+        t = RIGHT_OP_TOK;
+        break;
+      }
+      else if (c == '*' && peek(1) == '=') {
+        tokBuf.append("*=");
+        advance();
+        advance();
+        t = MUL_ASSIGN_TOK;
+        break;
+      }
+      else if (c == '/' && peek(1) == '=') {
+        tokBuf.append("<=");
+        advance();
+        advance();
+        t = DIV_ASSIGN_TOK;
+        break;
+      }
+      else if (c == '%' && peek(1) == '=') {
+        tokBuf.append("%=");
+        advance();
+        advance();
+        t = MOD_ASSIGN_TOK;
+        break;
+      }
+      else if (c == '+' && peek(1) == '=') {
+        tokBuf.append("+=");
+        advance();
+        advance();
+        t = ADD_ASSIGN_TOK;
+        break;
+      }
+      else if (c == '-' && peek(1) == '=') {
+        tokBuf.append("-=");
+        advance();
+        advance();
+        t = SUB_ASSIGN_TOK;
+        break;
+      }
+      else if (c == '^' && peek(1) == '=') {
+        tokBuf.append("^=");
+        advance();
+        advance();
+        t = XOR_ASSIGN_TOK;
+        break;
+      }
+      else if (c == '&' && peek(1) == '=') {
+        tokBuf.append("&=");
+        advance();
+        advance();
+        t = AND_ASSIGN_TOK;
+        break;
+      }
+      else if (c == '|' && peek(1) == '=') {
+        tokBuf.append("|=");
+        advance();
+        advance();
+        t = OR_ASSIGN_TOK;
+        break;
+      }
+      else if (c == '#') {
         do {
           advance();
         } while (peek() != '\n');
@@ -268,5 +541,8 @@ public class ANSICScanner extends Scanner {
     setText(tokBuf.toString());
     return new Token(t, yytext);
   }
-  
+
 }
+
+
+

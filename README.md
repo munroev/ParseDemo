@@ -1,6 +1,6 @@
 ## Getting Started
 
-This was originally a Java Applet written by professor Zerksis D. Umrigar to demonstrate parsing with different context free grammars. This app is now used as a learning tool by Professor Charles T. Wilkes at the University Of Massachusetts Lowell in the Organization Of Programming Languages course. I modified the code so it became a stand alone app, as Java Applets have become deprecated. In addition to implementing grammars at the request of Professor Wilkes , I also added features such as being able to rerun parsings during runtime and being able to choose a grammar from a drop down menu.
+This was originally a Java Applet written by professor Zerksis D. Umrigar to demonstrate parsing algorithms with a custom context free grammar. This app is now used as a learning tool by Professor Charles T. Wilkes at the University Of Massachusetts Lowell in the Organization Of Programming Languages course. I modified the code so it became a stand alone app, as Java Applets have become deprecated. In addition to implementing a new grammar at the request of Professor Wilkes , I also added features such as being able to rerun parsings during runtime and being able to choose a grammar from a drop down menu.
 
 To use simply compile all files and run the main class in ParsDemo.Java.
 

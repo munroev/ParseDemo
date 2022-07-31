@@ -1,11 +1,10 @@
 package zdu.parsdemo;
+
 import java.util.Hashtable;
 
 public class ANSICScanner extends Scanner {
 
-   
-
-      // Reserved word tokens.
+  // Reserved word tokens.
   static private final int RESERVED_LO = 256; // Compound token #s > this.
   static private final int N_RESERVED = 2; // # of reserved words.
   static final int DIV_TOK = RESERVED_LO; // 256
@@ -28,60 +27,60 @@ public class ANSICScanner extends Scanner {
   static final int LIT_TOK = 271;
   public static final int IDENTIFIER_TOK = 0;
   public static final int CONSTANT_TOK = 0;
-public static final int STRING_LITERAL_TOK = 0;
-public static final int SIZEOF_TOK = 0;
-public static final int PTR_OP_TOK = 0;
-public static final int INC_OP_TOK = 0;
-public static final int DEC_OP_TOK = 0;
-public static final int LEFT_OP_TOK = 0;
-public static final int RIGHT_OP_TOK = 0;
-public static final int GE_OP_TOK = 0;
-public static final int LE_OP_TOK = 0;
-public static final int EQ_OP_TOK = 0;
-public static final int NE_OP_TOK = 0;
-public static final int AND_OP_TOK = 0;
-public static final int OR_OP_TOK = 0;
-public static final int MUL_ASSIGN_TOK = 0;
-public static final int DIV_ASSIGN_TOK = 0;
-public static final int MOD_ASSIGN_TOK = 0;
-public static final int ADD_ASSIGN_TOK = 0;
-public static final int SUB_ASSIGN_TOK = 0;
-public static final int LEFT_ASSIGN_TOK = 0;
-public static final int RIGHT_ASSIGN_TOK = 0;
-public static final int AND_ASSIGN_TOK = 0;
-public static final int XOR_ASSIGN_TOK = 0;
-public static final int OR_ASSIGN_TOK = 0;
-public static final int TYPEDEF_TOK = 0;
-public static final int EXTERN_TOK = 0;
-public static final int STATIC_TOK = 0;
-public static final int AUTO_TOK = 0;
-public static final int REGISTER_TOK = 0;
-public static final int VOID_TOK = 0;
-public static final int CHAR_TOK = 0;
-public static final int SHORT_TOK = 0;
-public static final int INT_TOK = 0;
-public static final int LONG_TOK = 0;
-public static final int FLOAT_TOK = 0;
-public static final int DOUBLE_TOK = 0;
-public static final int SIGNED_TOK = 0;
-public static final int UNSIGNED_TOK = 0;
-public static final int TYPE_NAME_TOK = 0;
-public static final int STRUCT_TOK = 0;
-public static final int UNION_TOK = 0;
-public static final int ENUM_TOK = 0;
-public static final int CONST_TOK = 0;
-public static final int VOLATILE_TOK = 0;
-public static final int ELLIPSIS_TOK = 0;
-public static final int CASE_TOK = 0;
-public static final int DEFAULT_TOK = 0;
-public static final int ELSE_TOK = 0;
-public static final int SWITCH_TOK = 0;
-public static final int DO_TOK = 0;
-public static final int FOR_TOK = 0;
-public static final int GOTO_TOK = 0;
-public static final int BREAK_TOK = 0;
-public static final int RETURN_TOK = 0;
-public static final int CONTINUE_TOK = 0;
+  public static final int STRING_LITERAL_TOK = 0;
+  public static final int SIZEOF_TOK = 0;
+  public static final int PTR_OP_TOK = 0;
+  public static final int INC_OP_TOK = 0;
+  public static final int DEC_OP_TOK = 0;
+  public static final int LEFT_OP_TOK = 0;
+  public static final int RIGHT_OP_TOK = 0;
+  public static final int GE_OP_TOK = 0;
+  public static final int LE_OP_TOK = 0;
+  public static final int EQ_OP_TOK = 0;
+  public static final int NE_OP_TOK = 0;
+  public static final int AND_OP_TOK = 0;
+  public static final int OR_OP_TOK = 0;
+  public static final int MUL_ASSIGN_TOK = 0;
+  public static final int DIV_ASSIGN_TOK = 0;
+  public static final int MOD_ASSIGN_TOK = 0;
+  public static final int ADD_ASSIGN_TOK = 0;
+  public static final int SUB_ASSIGN_TOK = 0;
+  public static final int LEFT_ASSIGN_TOK = 0;
+  public static final int RIGHT_ASSIGN_TOK = 0;
+  public static final int AND_ASSIGN_TOK = 0;
+  public static final int XOR_ASSIGN_TOK = 0;
+  public static final int OR_ASSIGN_TOK = 0;
+  public static final int TYPEDEF_TOK = 0;
+  public static final int EXTERN_TOK = 0;
+  public static final int STATIC_TOK = 0;
+  public static final int AUTO_TOK = 0;
+  public static final int REGISTER_TOK = 0;
+  public static final int VOID_TOK = 0;
+  public static final int CHAR_TOK = 0;
+  public static final int SHORT_TOK = 0;
+  public static final int INT_TOK = 0;
+  public static final int LONG_TOK = 0;
+  public static final int FLOAT_TOK = 0;
+  public static final int DOUBLE_TOK = 0;
+  public static final int SIGNED_TOK = 0;
+  public static final int UNSIGNED_TOK = 0;
+  public static final int TYPE_NAME_TOK = 0;
+  public static final int STRUCT_TOK = 0;
+  public static final int UNION_TOK = 0;
+  public static final int ENUM_TOK = 0;
+  public static final int CONST_TOK = 0;
+  public static final int VOLATILE_TOK = 0;
+  public static final int ELLIPSIS_TOK = 0;
+  public static final int CASE_TOK = 0;
+  public static final int DEFAULT_TOK = 0;
+  public static final int ELSE_TOK = 0;
+  public static final int SWITCH_TOK = 0;
+  public static final int DO_TOK = 0;
+  public static final int FOR_TOK = 0;
+  public static final int GOTO_TOK = 0;
+  public static final int BREAK_TOK = 0;
+  public static final int RETURN_TOK = 0;
+  public static final int CONTINUE_TOK = 0;
 
   // Hashtable for storing reserved words and identifiers.
   private Hashtable ids = new Hashtable();
@@ -94,20 +93,71 @@ public static final int CONTINUE_TOK = 0;
 
   private void initToks() {
 
-    addTok(ASSGN_TOK, ":=");
-    addTok(ID_TOK, "ID");
-    addTok(READ_TOK, "Read");
-    addTok(WRITE_TOK, "Write");
-    addTok(IF_TOK, "If");
+    addTok(IDENTIFIER_TOK, "IDENTIFIER");
+    addTok(CONSTANT_TOK, "CONSTANT");
+    addTok(STRING_LITERAL_TOK, "STRING_LITERAL");
 
-    addTok(WHILE_TOK, "While");
-    addTok(END_TOK, "End");
+    addTok(SIZEOF_TOK, "sizeof");
+    addTok(PTR_OP_TOK, "->");
 
-    
-    addTok(NEQUALS_TOK, "<>");
-    addTok(LESSER_TOK, "<=");
-    addTok(GREATER_TOK, ">=");
-    addTok(LIT_TOK, "Literal");
+    addTok(INC_OP_TOK, "++");
+    addTok(DEC_OP_TOK, "--");
+
+    addTok(LEFT_OP_TOK, "<<");
+    addTok(RIGHT_OP_TOK, ">>");
+    addTok(GE_OP_TOK, ">=");
+    addTok(LE_OP_TOK, "<=");
+    addTok(EQ_OP_TOK, "==");
+    addTok(NE_OP_TOK, "!=");
+    addTok(AND_OP_TOK, "&&");
+    addTok(OR_OP_TOK, "||");
+
+    addTok(MUL_ASSIGN_TOK, "*=");
+    addTok(DIV_ASSIGN_TOK, "/=");
+    addTok(MOD_ASSIGN_TOK, "%=");
+    addTok(ADD_ASSIGN_TOK, "+=");
+    addTok(SUB_ASSIGN_TOK, "-=");
+    addTok(LEFT_ASSIGN_TOK, "<<=");
+    addTok(RIGHT_ASSIGN_TOK, ">>=");
+    addTok(XOR_ASSIGN_TOK, "^=");
+    addTok(AND_ASSIGN_TOK, "&=");
+    addTok(OR_ASSIGN_TOK, "|=");
+
+    addTok(TYPEDEF_TOK, "typedef");
+    addTok(EXTERN_TOK, "extern");
+    addTok(STATIC_TOK, "static");
+    addTok(AUTO_TOK, "auto");
+    addTok(REGISTER_TOK, "register");
+    addTok(VOID_TOK, "void");
+    addTok(CHAR_TOK, "char");
+    addTok(SHORT_TOK, "short");
+
+    addTok(INT_TOK, "int");
+    addTok(LONG_TOK, "long");
+    addTok(FLOAT_TOK, "float");
+    addTok(DOUBLE_TOK, "double");
+    addTok(SIGNED_TOK, "signed");
+    addTok(UNSIGNED_TOK, "unsigned");
+    addTok(TYPE_NAME_TOK, "TYPE_NAME");
+    addTok(STRUCT_TOK, "struct");
+
+    addTok(UNION_TOK, "union");
+    addTok(ENUM_TOK, "enum");
+    addTok(CONST_TOK, "const");
+    addTok(VOLATILE_TOK, "volatile");
+    addTok(ELLIPSIS_TOK, "...");
+    addTok(CASE_TOK, "case");
+    addTok(DEFAULT_TOK, "default");
+    addTok(ELSE_TOK, "else");
+
+    addTok(SWITCH_TOK, "switch");
+    addTok(DO_TOK, "do");
+    addTok(FOR_TOK, "for");
+    addTok(GOTO_TOK, "goto");
+    addTok(BREAK_TOK, "break");
+    addTok(CASE_TOK, "case");
+    addTok(RETURN_TOK, "return");
+    addTok(CONTINUE_TOK, "continue");
 
   }
 
@@ -231,5 +281,5 @@ public static final int CONTINUE_TOK = 0;
     setText(tokBuf.toString());
     return new Token(t, yytext);
   }
-    
+
 }

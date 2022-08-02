@@ -295,7 +295,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       GridBagLayout layout = new GridBagLayout();
       this.setLayout(layout);
       GridBagConstraints c = new GridBagConstraints();
-
+  
       c.gridx = 0;
       c.gridy = 5;
       c.weightx = 100;
@@ -393,9 +393,12 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.fill = GridBagConstraints.RELATIVE;
       c.anchor = GridBagConstraints.WEST;
       layout.setConstraints(menuBar, c);
+      
       add(menuBar);
       this.invalidate();
       this.validate();
+
+      
    }
 
    private void setGrammar(int algorithm) {

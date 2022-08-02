@@ -9,7 +9,7 @@ public class ANSICGrammar extends Grammar {
 
     ANSICGrammar() {
 
-        setStartSym(primary_expression);
+        setStartSym(translation_unit);
 
         // primary_expression
         beginRule(primary_expression);

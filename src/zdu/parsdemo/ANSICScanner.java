@@ -155,7 +155,7 @@ public class ANSICScanner extends Scanner {
   public int getID(String text) {
     Integer val = (Integer) ids.get(text);
     if (val == null) {
-      val = new Integer(ids.size());
+      val = Integer.valueOf(ids.size());
       ids.put(text, val);
     }
     return val.intValue();

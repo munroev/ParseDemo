@@ -34,7 +34,7 @@ abstract class Scanner {
 
   public String tokName(int t) {
     return   (t == 0) ? eofName
-           : (t < 256) ? "'" + (new Character((char)t)).toString() + "'"
+           : (t < 256) ? "'" + (Character.valueOf((char)t)).toString() + "'"
            : (String) (tokNames.get(Integer.valueOf(t)));
   }
 

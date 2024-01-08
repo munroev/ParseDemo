@@ -16,13 +16,8 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.ScrollableCanvas;
-import zdu.parsdemo.Selectable;
-import zdu.parsdemo.TextMark;
-import zdu.parsdemo.TextLine;
-
 import java.awt.*;
-import java.io.*;
+
 import java.util.ArrayList;
 
 class TextCanvas extends ScrollableCanvas implements Selectable {

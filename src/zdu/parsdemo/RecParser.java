@@ -16,13 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.Grammar;
-import zdu.parsdemo.OffsetTree;
-import zdu.parsdemo.ParseNode;
-import zdu.parsdemo.Scanner;
 
-import java.util.Stack;
-import java.util.EmptyStackException;
 
 abstract class RecParser extends StepParser {
   

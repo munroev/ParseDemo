@@ -16,8 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.GramSym;
-import zdu.parsdemo.Rule;
+
 
 class NonTerm extends GramSym {
   public NonTerm(String name, int num) {

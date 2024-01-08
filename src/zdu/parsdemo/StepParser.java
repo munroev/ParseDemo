@@ -16,16 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.Grammar;
-import zdu.parsdemo.OffsetForest;
-import zdu.parsdemo.ParseStk;
-import zdu.parsdemo.ParseDisplay;
-import zdu.parsdemo.ParseException;
-import zdu.parsdemo.ParseResetException;
-import zdu.parsdemo.ParseNode;
-import zdu.parsdemo.Scanner;
 
-import java.util.Stack;
 import java.lang.ArrayIndexOutOfBoundsException;
 import java.io.*;
 import java.lang.InternalError;

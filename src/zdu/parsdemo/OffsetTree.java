@@ -16,7 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.Tree;
+
 
 /**
  * Trees where each kid maintains an offset from its parent, which

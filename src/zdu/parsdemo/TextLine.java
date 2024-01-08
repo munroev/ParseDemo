@@ -16,7 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.TextMark;
+
 
 import java.awt.Color;
 

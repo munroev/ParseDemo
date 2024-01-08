@@ -16,8 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.SRState;
-import zdu.parsdemo.ParseStkEntry;
+
 
 class SRParseStkEntry extends ParseStkEntry {
 

@@ -16,14 +16,12 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.ScrollPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
-import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;

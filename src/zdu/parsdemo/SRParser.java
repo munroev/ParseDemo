@@ -16,13 +16,6 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.Grammar;
-import zdu.parsdemo.GramSym;
-import zdu.parsdemo.NonTerm;
-import zdu.parsdemo.ParseDisplay;
-import zdu.parsdemo.Rule;
-import zdu.parsdemo.StepParser;
-import zdu.parsdemo.Terminal;
 
 class SRParser extends StepParser {
 

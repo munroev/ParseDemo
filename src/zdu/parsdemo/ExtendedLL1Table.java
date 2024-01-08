@@ -1,10 +1,7 @@
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.Grammar;
-import zdu.parsdemo.SparseTable2;
 
-import java.util.Enumeration;
 
 class ExtendedLL1Table extends LL1Table {
 

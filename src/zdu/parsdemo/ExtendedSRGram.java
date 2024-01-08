@@ -6,9 +6,6 @@
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.Grammar;
-import zdu.parsdemo.NonTerm;
-import zdu.parsdemo.Terminal;
 
 class ExtendedSRGram extends Grammar {
 

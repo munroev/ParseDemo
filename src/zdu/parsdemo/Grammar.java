@@ -16,10 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.GramSym;
-import zdu.parsdemo.NonTerm;
-import zdu.parsdemo.Rule;
-import zdu.parsdemo.Terminal;
+
 
 import java.util.*;
 

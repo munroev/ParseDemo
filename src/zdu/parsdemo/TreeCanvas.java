@@ -16,10 +16,9 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.OffsetForest;
-import zdu.parsdemo.ScrollableCanvas;
 import java.awt.*;
-import java.io.*;
+
+
 
 class TreeCanvas extends ScrollableCanvas implements Selectable {
 

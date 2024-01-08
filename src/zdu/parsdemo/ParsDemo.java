@@ -21,19 +21,13 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.FileCanvas;
-import zdu.parsdemo.ParseDisplay;
-import zdu.parsdemo.Selectable;
-import zdu.parsdemo.StepParser;
-import zdu.parsdemo.TraceCanvas;
-import zdu.parsdemo.TreeCanvas;
+
 
 import java.io.*;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
-import java.net.*;
-import java.util.Scanner;
+
 
 /**
  * Play and display different parsing algorithms in action.
@@ -502,11 +496,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private static final String INIT_INPUT = "Read A Read B sum := A+B Write sum Write sum/2";
    private static final int FLASH_DELAY = 1000;
    private static final int N_FLASH = 2;
-
-   // FIXME
    static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-   //private static final int HEIGHT = 1000;
-   //private static final int WIDTH = 1000;
    private static final int HEIGHT = (int) screenSize.getHeight();
    private static final int WIDTH = (int) screenSize.getWidth();
 }

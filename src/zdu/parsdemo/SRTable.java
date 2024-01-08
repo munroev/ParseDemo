@@ -16,8 +16,6 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.SparseTable2;
-import zdu.parsdemo.SRState;
 
 import java.util.Enumeration;
 import java.util.Hashtable;

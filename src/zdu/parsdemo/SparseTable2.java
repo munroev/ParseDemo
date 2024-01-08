@@ -26,10 +26,7 @@ row and column indexes as well as values.
 
 */
 
-import zdu.parsdemo.RowCol;
-import zdu.parsdemo.Table2;
 
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.ArrayList;
 

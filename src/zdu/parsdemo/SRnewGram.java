@@ -1,8 +1,6 @@
 package zdu.parsdemo;
 
-import zdu.parsdemo.Grammar;
-import zdu.parsdemo.NonTerm;
-import zdu.parsdemo.Terminal;
+
 
 class SRnewGram extends Grammar {
 

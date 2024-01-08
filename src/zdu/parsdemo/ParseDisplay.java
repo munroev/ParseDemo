@@ -16,12 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 import javax.swing.JComponent;
-import zdu.parsdemo.OffsetForest;
-import zdu.parsdemo.Selectable;
-import zdu.parsdemo.TraceCanvas;
-import zdu.parsdemo.TreeCanvas;
 
-import java.util.Stack;
 
 class ParseDisplay {
 

@@ -16,9 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.TextCanvas;
 
-import java.awt.*;
 import java.io.*;
 
 /** Displays the contents of a text-file in a scrollable text-canvas.  The

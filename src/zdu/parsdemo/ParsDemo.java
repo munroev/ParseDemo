@@ -33,8 +33,6 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 import java.net.*;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import java.util.Scanner;
 
 /**
@@ -496,14 +494,19 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private int SR_PARSER = 2;
    private final String fName = "SimpCompRecDescent.txt";
    private static final double TREE_WIDTH = 0.9;
-   private static final double TREE_HEIGHT = 0.5;
+   private static final double TREE_HEIGHT = 0.4;
    private static final double SELECT_WIDTH = 0.6;
-   private static final double SELECT_HEIGHT = 0.3;
+   private static final double SELECT_HEIGHT = 0.4;
    private static final double TRACE_WIDTH = 0.3;
-   private static final double TRACE_HEIGHT = 0.3;
+   private static final double TRACE_HEIGHT = 0.4;
    private static final String INIT_INPUT = "Read A Read B sum := A+B Write sum Write sum/2";
    private static final int FLASH_DELAY = 1000;
    private static final int N_FLASH = 2;
-   private static final int HEIGHT = 1000;
-   private static final int WIDTH = 1000;
+
+   // FIXME
+   static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+   //private static final int HEIGHT = 1000;
+   //private static final int WIDTH = 1000;
+   private static final int HEIGHT = (int) screenSize.getHeight();
+   private static final int WIDTH = (int) screenSize.getWidth();
 }

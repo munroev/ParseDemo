@@ -147,10 +147,10 @@ public class ANSICScanner extends Scanner {
     addTok(IF_TOK, "if");
   }
 
-  private void initIDs() {
-    ids.put("div", new Integer(ids.size()));
-    ids.put("mod", new Integer(ids.size()));
-  }
+  // private void initIDs() {
+  //   ids.put("div", new Integer(ids.size()));
+  //   ids.put("mod", new Integer(ids.size()));
+  // }
 
   public int getID(String text) {
     Integer val = (Integer) ids.get(text);

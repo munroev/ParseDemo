@@ -2,7 +2,7 @@ package zdu.parsdemo;
 
 import java.util.Hashtable;
 
-//FIXME
+
 /*
 
 During initialization, we enter all reserved words into the identifier

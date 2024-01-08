@@ -23,7 +23,7 @@ import java.util.*;
 abstract class Grammar {
 
   Terminal terminal(int tokNum) {
-    Terminal t= (Terminal) terminalsByTok.get(new Integer(tokNum));
+    Terminal t= (Terminal) terminalsByTok.get(Integer.valueOf(tokNum));
     return (t == null) ? ERR : t;
   }
 

@@ -84,7 +84,8 @@ class Table2Canvas extends ScrollableCanvas implements Selectable {
   }
 
   public synchronized void reshape(int x, int y, int w, int h) {
-    super.setBounds(x, y, w, h); updated= true;
+    //FIXME setBounds doesn't work
+    super.reshape(x, y, w, h); updated= true;
   }
 
   /** Paint two dimensional table on its canvas.  Since the drawing

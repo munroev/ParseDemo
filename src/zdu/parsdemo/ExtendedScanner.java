@@ -99,7 +99,7 @@ class ExtendedScanner extends Scanner {
         tokBuf.append(eofName);
         break;
       }
-      for (c = peek(); Character.isSpace(c); advance(), c = peek()) {
+      for (c = peek(); Character.isWhitespace(c); advance(), c = peek()) {
       }
       if (Character.isLetter(c)) {
         do {

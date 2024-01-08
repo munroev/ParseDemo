@@ -96,7 +96,7 @@ class Table2Canvas extends ScrollableCanvas implements Selectable {
    */
   public void paint(Graphics g) {
     
-    Dimension s= size();
+    Dimension s= getSize();
     int nRows= table.nRows();
     int nCols= table.nCols();
     if (updated) {

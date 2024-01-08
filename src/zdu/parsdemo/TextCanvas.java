@@ -65,7 +65,7 @@ class TextCanvas extends ScrollableCanvas implements Selectable {
         maxWidth = w;
     }
 
-    Dimension visSize = size();
+    Dimension visSize = getSize();
     hScroll.setValues(0, visSize.width, 0, maxWidth + SLOP - visSize.width);
     hScroll.setUnitIncrement(fontMetrics.stringWidth("m"));
     hScroll.setBlockIncrement(visSize.width - SLOP);
@@ -125,7 +125,7 @@ class TextCanvas extends ScrollableCanvas implements Selectable {
     if (0 < lineN && lineN <= lines.size()) {
 
       markLine(lineN, Sel_Col);
-      int nLines2 = ((size().height) / (fontMetrics.getHeight())) / 2;
+      int nLines2 = ((getSize().height) / (fontMetrics.getHeight())) / 2;
       topLineN = (lineN - nLines2 < 1) ? 1 : lineN - nLines2;
     }
     selectedLineN = lineN;

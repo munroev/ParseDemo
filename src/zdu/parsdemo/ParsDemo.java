@@ -68,6 +68,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       setGrammar(alg);
 
       addWindowListener(this);
+      resizeButton = new JButton("increase tree window");
+      resizeButton.addActionListener(this);
       updateButton = new JButton("update");
       updateButton.addActionListener(this);
       inputField = new JTextField(INIT_INPUT, 50);
@@ -334,6 +336,17 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
 
       c.gridx = 10;
       c.gridy = 95;
+      c.weightx = 0;
+      c.weighty = 0;
+      c.gridheight = 5;
+      c.gridwidth = 8;
+      c.fill = GridBagConstraints.RELATIVE;
+      c.anchor = GridBagConstraints.WEST;
+      layout.setConstraints(resizeButton, c);
+      add(resizeButton);
+
+      c.gridx = 45;
+      c.gridy = 95;
       c.weightx = 100;
       c.weighty = 0;
       c.gridheight = 5;
@@ -470,6 +483,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private TreeCanvas treeCanvas;
    private TraceCanvas traceCanvas;
    private JButton updateButton;
+    private JButton resizeButton;
    private JTextField inputField;
    private JButton startStepButton;
    private JButton runStopButton;

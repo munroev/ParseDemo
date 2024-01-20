@@ -221,7 +221,18 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          parser.reset();
          doStep();
       }
+      else if (e.getSource()==resizeButton){
+         resizeTree();
+      }
+      
 
+   }
+
+   private void resizeTree() {
+     if (TREE_HEIGHT == .4)
+         TREE_HEIGHT =.9;
+      else  
+         TREE_HEIGHT=.4;
    }
 
    public void windowClosing(WindowEvent e) {
@@ -501,12 +512,12 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private int LL_PARSER = 1;
    private int SR_PARSER = 2;
    private final String fName = "SimpCompRecDescent.txt";
-   private static final double TREE_WIDTH = 0.9;
-   private static final double TREE_HEIGHT = 0.4;
-   private static final double SELECT_WIDTH = 0.6;
-   private static final double SELECT_HEIGHT = 0.4;
-   private static final double TRACE_WIDTH = 0.3;
-   private static final double TRACE_HEIGHT = 0.4;
+   private static  double TREE_WIDTH = 0.9;
+   private   double TREE_HEIGHT = 0.4;
+   private static  double SELECT_WIDTH = 0.6;
+   private static  double SELECT_HEIGHT = 0.4;
+   private static  double TRACE_WIDTH = 0.3;
+   private static  double TRACE_HEIGHT = 0.4;
    private static final String INIT_INPUT = "Read A Read B sum := A+B Write sum Write sum/2";
    private static final int FLASH_DELAY = 1000;
    private static final int N_FLASH = 2;

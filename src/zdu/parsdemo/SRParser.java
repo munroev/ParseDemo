@@ -88,10 +88,12 @@ class SRParser extends StepParser {
 	      case SRAct.REDUCE: {
 		Rule rule= act.getRule();
 		if (rule.getNum() == 0) { //accept
-		  forest.pop();  //pop EOF from forest.
+		//   forest.pop();  //pop EOF from forest.
+		while(!stk.empty()){
 		  stk.popT();    //pop EOF from stk.
-		  stk.popT();    //pop full parse tree from stk.
-		  stk.popT();    //pop $S.
+		}
+		//   stk.popT();    //pop full parse tree from stk.
+		//   stk.popT();    //pop $S.
 		  xSelect= ySelect= null;
 		  didLastUpdate= true; treeSelect= null;
 		}

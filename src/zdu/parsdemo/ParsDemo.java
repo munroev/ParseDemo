@@ -197,6 +197,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       } else if (e.getSource() == Rec) {
 
          removeComponents();
+         currGrammar=REC_DESCENT_PARSER;
          setGrammar(REC_DESCENT_PARSER);
          setComponents();
          doStart();
@@ -204,6 +205,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       } else if (e.getSource() == LL) {
 
          removeComponents();
+         currGrammar=LL_PARSER;
          setGrammar(LL_PARSER);
          setComponents();
          doStart();
@@ -211,6 +213,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       } else if (e.getSource() == SR) {
 
          removeComponents();
+         currGrammar=SR_PARSER;
          setGrammar(SR_PARSER);
          setComponents();
          doStart();
@@ -414,15 +417,19 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    }
 
    private void resizeTree() {
-      if (TREE_HEIGHT == .4)
-          TREE_HEIGHT =.8;
-       else  
-          TREE_HEIGHT=.4;
-
+      // if (TREE_HEIGHT == .4)
+      //     TREE_HEIGHT =.8;
+      //  else  
+      //     TREE_HEIGHT=.4;
+     
+      TREE_HEIGHT=.8;
       SELECT_HEIGHT=(1-TREE_HEIGHT);
       TRACE_HEIGHT=(1-TREE_HEIGHT);
-       //To-Do add update canvas height
-      //  treeCanvas.repaint();
+   
+         removeComponents();
+         setGrammar(currGrammar);
+         setComponents();
+         doStart();
     }
    private void setGrammar(int algorithm) {
       scanner = new ExtendedScanner();
@@ -518,6 +525,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private int REC_DESCENT_PARSER = 0;
    private int LL_PARSER = 1;
    private int SR_PARSER = 2;
+   private int currGrammar=LL_PARSER;
    private final String fName = "SimpCompRecDescent.txt";
    private static  double TREE_WIDTH = 0.9;
    private   double TREE_HEIGHT = 0.4;

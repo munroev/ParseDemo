@@ -85,8 +85,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       setGrammar(alg);
 
       addWindowListener(this);
-      resizeButton = new JButton("increase tree window");
-      resizeButton.addActionListener(this);
+      // resizeButton = new JButton("increase tree window");
+      // resizeButton.addActionListener(this);
       updateButton = new JButton("update");
       updateButton.addActionListener(this);
       inputField = new JTextField(INIT_INPUT, 50);
@@ -247,9 +247,9 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          parser.reset();
          doStep();
       }
-      else if (e.getSource()==resizeButton){
-         resizeTree();
-      }
+      // else if (e.getSource()==resizeButton){
+      //    resizeTree();
+      // }
 
       
       
@@ -306,7 +306,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       this.getContentPane().remove(prgTableCanvas.getComponent());
 
       this.getContentPane().remove(updateButton);
-      this.getContentPane().remove(resizeButton);
+      // this.getContentPane().remove(resizeButton);
       this.getContentPane().remove(inputField);
       this.getContentPane().remove(startStepButton);
 
@@ -377,8 +377,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.gridwidth = 8;
       c.fill = GridBagConstraints.RELATIVE;
       c.anchor = GridBagConstraints.WEST;
-      layout.setConstraints(resizeButton, c);
-      add(resizeButton);
+      // layout.setConstraints(resizeButton, c);
+      // add(resizeButton);
 
       c.gridx = 45;
       c.gridy = 95;
@@ -441,21 +441,21 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       
    }
 
-   private void resizeTree() {
-      if (TREE_HEIGHT == .4)
-          TREE_HEIGHT =.8;
-       else  
-          TREE_HEIGHT=.4;
+   // private void resizeTree() {
+   //    if (TREE_HEIGHT == .4)
+   //        TREE_HEIGHT =.8;
+   //     else  
+   //        TREE_HEIGHT=.4;
      
-      // TREE_HEIGHT=.8;
-      SELECT_HEIGHT=(1-TREE_HEIGHT);
-      TRACE_HEIGHT=(1-TREE_HEIGHT);
+   //    // TREE_HEIGHT=.8;
+   //    SELECT_HEIGHT=(1-TREE_HEIGHT);
+   //    TRACE_HEIGHT=(1-TREE_HEIGHT);
    
-         removeComponents();
-         setGrammar(currGrammar);
-         setComponents();
-         doStart();
-    }
+   //       removeComponents();
+   //       setGrammar(currGrammar);
+   //       setComponents();
+   //       doStart();
+   //  }
 
     private void resizeTree(double size) {
       TREE_HEIGHT=size;
@@ -544,7 +544,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private TreeCanvas treeCanvas;
    private TraceCanvas traceCanvas;
    private JButton updateButton;
-    private JButton resizeButton;
+   //  private JButton resizeButton;
    private JTextField inputField;
    private JButton startStepButton;
    private JButton runStopButton;

@@ -59,7 +59,24 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       fileMenu.add(LL);
       fileMenu.add(SR);
 
+      
+
+      sizeMenu = new JMenu("Resize");
+       full = new JMenuItem("Full Size");
+       quarter = new JMenuItem("1/4 Screen");
+       half = new JMenuItem("1/2");
+
+       full.addActionListener(this);
+       quarter.addActionListener(this);
+       half.addActionListener(this);
+
+      sizeMenu.add(half);
+      sizeMenu.add(full);
+      sizeMenu.add(quarter);
+      
+
       menuBar.add(fileMenu);
+      menuBar.add(sizeMenu);
 
       Font font = new Font("Plain", Font.ROMAN_BASELINE, 13);
 
@@ -194,7 +211,13 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          doRun();
       } else if (e.getSource() == runStopButton && runStopButton.getText().equals("stop")) {
          doStop();
-      } else if (e.getSource() == Rec) {
+      } 
+      else if (e.getSource()==full){resizeTree(FULL);
+      } 
+      else if (e.getSource()==half){resizeTree(HALF);
+      }
+      else if (e.getSource()==quarter){resizeTree(QUATER);}
+      else if (e.getSource() == Rec) {
 
          removeComponents();
          currGrammar=REC_DESCENT_PARSER;
@@ -227,6 +250,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       else if (e.getSource()==resizeButton){
          resizeTree();
       }
+
+      
       
 
    }
@@ -417,12 +442,23 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    }
 
    private void resizeTree() {
-      // if (TREE_HEIGHT == .4)
-      //     TREE_HEIGHT =.8;
-      //  else  
-      //     TREE_HEIGHT=.4;
+      if (TREE_HEIGHT == .4)
+          TREE_HEIGHT =.8;
+       else  
+          TREE_HEIGHT=.4;
      
-      TREE_HEIGHT=.8;
+      // TREE_HEIGHT=.8;
+      SELECT_HEIGHT=(1-TREE_HEIGHT);
+      TRACE_HEIGHT=(1-TREE_HEIGHT);
+   
+         removeComponents();
+         setGrammar(currGrammar);
+         setComponents();
+         doStart();
+    }
+
+    private void resizeTree(double size) {
+      TREE_HEIGHT=size;
       SELECT_HEIGHT=(1-TREE_HEIGHT);
       TRACE_HEIGHT=(1-TREE_HEIGHT);
    
@@ -520,8 +556,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private boolean isStarted;
    private Thread flashThread;
    private JMenuBar menuBar;
-   private JMenu fileMenu;
-   private JMenuItem Rec, LL, SR;
+   private JMenu fileMenu, sizeMenu;
+   private JMenuItem Rec, LL, SR, half, full, quarter;
    private int REC_DESCENT_PARSER = 0;
    private int LL_PARSER = 1;
    private int SR_PARSER = 2;
@@ -533,6 +569,9 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private static  double SELECT_HEIGHT = 0.4;
    private static  double TRACE_WIDTH = 0.3;
    private   double TRACE_HEIGHT = 0.4;
+   private static double FULL=.8;
+   private static double HALF=.4;
+   private static  double QUATER =.25;
    private static final String INIT_INPUT = "Read A Read B sum := A+B Write sum Write sum/2";
    private static final int FLASH_DELAY = 1000;
    private static final int N_FLASH = 2;

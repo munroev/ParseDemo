@@ -459,8 +459,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
 
     private void resizeTree(double size) {
       TREE_HEIGHT=size;
-      SELECT_HEIGHT=(1-TREE_HEIGHT);
-      TRACE_HEIGHT=(1-TREE_HEIGHT);
+      SELECT_HEIGHT=(.85-TREE_HEIGHT);
+      TRACE_HEIGHT=(.85-TREE_HEIGHT);
    
          removeComponents();
          setGrammar(currGrammar);
@@ -564,13 +564,13 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private int currGrammar=LL_PARSER;
    private final String fName = "SimpCompRecDescent.txt";
    private static  double TREE_WIDTH = 0.9;
-   private   double TREE_HEIGHT = 0.4;
+   private   double TREE_HEIGHT = 0.45;
    private   double SELECT_WIDTH = 0.6;
    private static  double SELECT_HEIGHT = 0.4;
    private static  double TRACE_WIDTH = 0.3;
    private   double TRACE_HEIGHT = 0.4;
-   private static double FULL=.8;
-   private static double HALF=.4;
+   private static double FULL=.7;
+   private static double HALF=.45;
    private static  double QUATER =.25;
    private static final String INIT_INPUT = "Read A Read B sum := A+B Write sum Write sum/2";
    private static final int FLASH_DELAY = 1000;

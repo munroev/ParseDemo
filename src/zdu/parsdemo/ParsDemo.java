@@ -21,13 +21,10 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-
-
 import java.io.*;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
-
 
 /**
  * Play and display different parsing algorithms in action.
@@ -59,21 +56,18 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       fileMenu.add(LL);
       fileMenu.add(SR);
 
-      
-
       sizeMenu = new JMenu("Resize");
-       full = new JMenuItem("Full Size");
-       quarter = new JMenuItem("1/4 Screen");
-       half = new JMenuItem("1/2");
+      full = new JMenuItem("Full Size");
+      quarter = new JMenuItem("1/4 Screen");
+      half = new JMenuItem("1/2");
 
-       full.addActionListener(this);
-       quarter.addActionListener(this);
-       half.addActionListener(this);
+      full.addActionListener(this);
+      quarter.addActionListener(this);
+      half.addActionListener(this);
 
       sizeMenu.add(half);
       sizeMenu.add(full);
       sizeMenu.add(quarter);
-      
 
       menuBar.add(fileMenu);
       menuBar.add(sizeMenu);
@@ -211,16 +205,16 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          doRun();
       } else if (e.getSource() == runStopButton && runStopButton.getText().equals("stop")) {
          doStop();
-      } 
-      else if (e.getSource()==full){resizeTree(FULL);
-      } 
-      else if (e.getSource()==half){resizeTree(HALF);
-      }
-      else if (e.getSource()==quarter){resizeTree(QUATER);}
-      else if (e.getSource() == Rec) {
+      } else if (e.getSource() == full) {
+         resizeTree(FULL);
+      } else if (e.getSource() == half) {
+         resizeTree(HALF);
+      } else if (e.getSource() == quarter) {
+         resizeTree(QUATER);
+      } else if (e.getSource() == Rec) {
 
          removeComponents();
-         currGrammar=REC_DESCENT_PARSER;
+         currGrammar = REC_DESCENT_PARSER;
          setGrammar(REC_DESCENT_PARSER);
          setComponents();
          doStart();
@@ -228,7 +222,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       } else if (e.getSource() == LL) {
 
          removeComponents();
-         currGrammar=LL_PARSER;
+         currGrammar = LL_PARSER;
          setGrammar(LL_PARSER);
          setComponents();
          doStart();
@@ -236,7 +230,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       } else if (e.getSource() == SR) {
 
          removeComponents();
-         currGrammar=SR_PARSER;
+         currGrammar = SR_PARSER;
          setGrammar(SR_PARSER);
          setComponents();
          doStart();
@@ -247,16 +241,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          parser.reset();
          doStep();
       }
-      // else if (e.getSource()==resizeButton){
-      //    resizeTree();
-      // }
-
-      
-      
 
    }
-
-  
 
    public void windowClosing(WindowEvent e) {
       System.exit(0);
@@ -324,7 +310,7 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       GridBagLayout layout = new GridBagLayout();
       this.setLayout(layout);
       GridBagConstraints c = new GridBagConstraints();
-  
+
       c.gridx = 0;
       c.gridy = 5;
       c.weightx = 100;
@@ -377,8 +363,6 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.gridwidth = 8;
       c.fill = GridBagConstraints.RELATIVE;
       c.anchor = GridBagConstraints.WEST;
-      // layout.setConstraints(resizeButton, c);
-      // add(resizeButton);
 
       c.gridx = 45;
       c.gridy = 95;
@@ -433,40 +417,24 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       c.fill = GridBagConstraints.RELATIVE;
       c.anchor = GridBagConstraints.WEST;
       layout.setConstraints(menuBar, c);
-      
+
       add(menuBar);
       this.invalidate();
       this.validate();
 
-      
    }
 
-   // private void resizeTree() {
-   //    if (TREE_HEIGHT == .4)
-   //        TREE_HEIGHT =.8;
-   //     else  
-   //        TREE_HEIGHT=.4;
-     
-   //    // TREE_HEIGHT=.8;
-   //    SELECT_HEIGHT=(1-TREE_HEIGHT);
-   //    TRACE_HEIGHT=(1-TREE_HEIGHT);
-   
-   //       removeComponents();
-   //       setGrammar(currGrammar);
-   //       setComponents();
-   //       doStart();
-   //  }
+   private void resizeTree(double size) {
+      TREE_HEIGHT = size;
+      SELECT_HEIGHT = (.85 - TREE_HEIGHT);
+      TRACE_HEIGHT = (.85 - TREE_HEIGHT);
 
-    private void resizeTree(double size) {
-      TREE_HEIGHT=size;
-      SELECT_HEIGHT=(.85-TREE_HEIGHT);
-      TRACE_HEIGHT=(.85-TREE_HEIGHT);
-   
-         removeComponents();
-         setGrammar(currGrammar);
-         setComponents();
-         doStart();
-    }
+      removeComponents();
+      setGrammar(currGrammar);
+      setComponents();
+      doStart();
+   }
+
    private void setGrammar(int algorithm) {
       scanner = new ExtendedScanner();
 
@@ -531,8 +499,6 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
 
    static public void main(String args[]) {
 
-     
-
       ParsDemo app = new ParsDemo(1);
       app.doStart();
       app.setVisible(true);
@@ -544,7 +510,6 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private TreeCanvas treeCanvas;
    private TraceCanvas traceCanvas;
    private JButton updateButton;
-   //  private JButton resizeButton;
    private JTextField inputField;
    private JButton startStepButton;
    private JButton runStopButton;
@@ -561,17 +526,17 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
    private int REC_DESCENT_PARSER = 0;
    private int LL_PARSER = 1;
    private int SR_PARSER = 2;
-   private int currGrammar=LL_PARSER;
+   private int currGrammar = LL_PARSER;
    private final String fName = "SimpCompRecDescent.txt";
-   private static  double TREE_WIDTH = 0.9;
-   private   double TREE_HEIGHT = 0.45;
-   private   double SELECT_WIDTH = 0.6;
-   private static  double SELECT_HEIGHT = 0.4;
-   private static  double TRACE_WIDTH = 0.3;
-   private   double TRACE_HEIGHT = 0.4;
-   private static double FULL=.7;
-   private static double HALF=.45;
-   private static  double QUATER =.25;
+   private static double TREE_WIDTH = 0.9;
+   private double TREE_HEIGHT = 0.45;
+   private double SELECT_WIDTH = 0.6;
+   private static double SELECT_HEIGHT = 0.4;
+   private static double TRACE_WIDTH = 0.3;
+   private double TRACE_HEIGHT = 0.4;
+   private static double FULL = .7;
+   private static double HALF = .45;
+   private static double QUATER = .25;
    private static final String INIT_INPUT = "Read A Read B sum := A+B Write sum Write sum/2";
    private static final int FLASH_DELAY = 1000;
    private static final int N_FLASH = 2;

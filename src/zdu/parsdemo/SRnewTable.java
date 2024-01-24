@@ -1,13 +1,6 @@
 package zdu.parsdemo;
 
-import zdu.parsdemo.GramSym;
-import zdu.parsdemo.Grammar;
-import zdu.parsdemo.NonTerm;
-import zdu.parsdemo.Rule;
-import zdu.parsdemo.SRAct;
-import zdu.parsdemo.SRnewGram;
-import zdu.parsdemo.SparseTable2;
-import zdu.parsdemo.Terminal;
+
 
 class SRnewTable extends SRTable {
 

@@ -16,13 +16,11 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.ScrollableCanvas;
-import zdu.parsdemo.Trace;
-
-import javax.swing.*;
 import java.awt.*;
-import java.io.*;
 import java.util.ArrayList;
+
+
+
 
 /**
  * This canvas displays successive trace lines. Each trace line consists

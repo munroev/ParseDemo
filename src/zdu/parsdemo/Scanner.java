@@ -16,7 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.Token;
+
 
 import java.io.DataInputStream;
 import java.io.EOFException;
@@ -34,8 +34,8 @@ abstract class Scanner {
 
   public String tokName(int t) {
     return   (t == 0) ? eofName
-           : (t < 256) ? "'" + (new Character((char)t)).toString() + "'"
-           : (String) (tokNames.get(new Integer(t)));
+           : (t < 256) ? "'" + (Character.valueOf((char)t)).toString() + "'"
+           : (String) (tokNames.get(Integer.valueOf(t)));
   }
 
   public String currentLine() {
@@ -113,7 +113,7 @@ abstract class Scanner {
   }
 
   protected void addTok(int tok, String name) {
-    tokNames.put(new Integer(tok), name);
+    tokNames.put(Integer.valueOf(tok), name);
   }
 
   protected final char peek(int i) {

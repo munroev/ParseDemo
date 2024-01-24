@@ -16,10 +16,9 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.OffsetForest;
-import zdu.parsdemo.ScrollableCanvas;
 import java.awt.*;
-import java.io.*;
+
+
 
 class TreeCanvas extends ScrollableCanvas implements Selectable {
 
@@ -151,7 +150,7 @@ class TreeCanvas extends ScrollableCanvas implements Selectable {
 
   private void updateScrollbars(int x, int y, int width, int height) {
     
-    Dimension s= size();
+    Dimension s= getSize();
     int xMax= s.width > width ? s.width : width;
     int w1= width - s.width + SLOP;
     int x1= (x <= width) ? x : width;

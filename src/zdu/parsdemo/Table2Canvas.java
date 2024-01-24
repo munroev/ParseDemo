@@ -16,13 +16,8 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.ScrollableCanvas;
-import zdu.parsdemo.Selectable;
-import zdu.parsdemo.SparseTable2;
-import zdu.parsdemo.Table2;
-
 import java.awt.*;
-import java.util.*;
+
 
 class Table2Canvas extends ScrollableCanvas implements Selectable {
 
@@ -89,6 +84,7 @@ class Table2Canvas extends ScrollableCanvas implements Selectable {
   }
 
   public synchronized void reshape(int x, int y, int w, int h) {
+    //FIXME setBounds doesn't work
     super.reshape(x, y, w, h); updated= true;
   }
 
@@ -101,7 +97,7 @@ class Table2Canvas extends ScrollableCanvas implements Selectable {
    */
   public void paint(Graphics g) {
     
-    Dimension s= size();
+    Dimension s= getSize();
     int nRows= table.nRows();
     int nCols= table.nCols();
     if (updated) {

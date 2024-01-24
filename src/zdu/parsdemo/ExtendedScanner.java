@@ -2,6 +2,7 @@ package zdu.parsdemo;
 
 import java.util.Hashtable;
 
+
 /*
 
 During initialization, we enter all reserved words into the identifier
@@ -66,14 +67,14 @@ class ExtendedScanner extends Scanner {
   }
 
   private void initIDs() {
-    ids.put("div", new Integer(ids.size()));
-    ids.put("mod", new Integer(ids.size()));
+    ids.put("div", Integer.valueOf(ids.size()));
+    ids.put("mod", Integer.valueOf(ids.size()));
   }
 
   public int getID(String text) {
     Integer val = (Integer) ids.get(text);
     if (val == null) {
-      val = new Integer(ids.size());
+      val = Integer.valueOf(ids.size());
       ids.put(text, val);
     }
     return val.intValue();
@@ -98,7 +99,7 @@ class ExtendedScanner extends Scanner {
         tokBuf.append(eofName);
         break;
       }
-      for (c = peek(); Character.isSpace(c); advance(), c = peek()) {
+      for (c = peek(); Character.isWhitespace(c); advance(), c = peek()) {
       }
       if (Character.isLetter(c)) {
         do {

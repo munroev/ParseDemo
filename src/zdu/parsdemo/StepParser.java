@@ -16,16 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.Grammar;
-import zdu.parsdemo.OffsetForest;
-import zdu.parsdemo.ParseStk;
-import zdu.parsdemo.ParseDisplay;
-import zdu.parsdemo.ParseException;
-import zdu.parsdemo.ParseResetException;
-import zdu.parsdemo.ParseNode;
-import zdu.parsdemo.Scanner;
 
-import java.util.Stack;
 import java.lang.ArrayIndexOutOfBoundsException;
 import java.io.*;
 import java.lang.InternalError;
@@ -247,7 +238,8 @@ abstract class StepParser implements Runnable {
     System.out.println("Parser is " +
         (parserThread.isAlive() ? "alive" : "dead"));
     try {
-      Thread.currentThread().sleep(2000);
+      Thread.currentThread();
+      Thread.sleep(2000);
     } catch (InterruptedException e) {
     }
     System.out.println("Parser is " +

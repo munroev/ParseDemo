@@ -16,8 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.OffsetTree;
-import zdu.parsdemo.ParseNode;
+
 
 class ParseStkEntry {
 

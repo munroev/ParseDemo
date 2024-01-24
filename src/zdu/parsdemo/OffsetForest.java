@@ -16,7 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.OffsetTree;
+
 
 /* Implement an OffsetForest as nothing but an OffsetTree with a hidden
  * invisible root.  

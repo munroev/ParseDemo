@@ -16,13 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.Grammar;
-import zdu.parsdemo.OffsetTree;
-import zdu.parsdemo.ParseNode;
-import zdu.parsdemo.Scanner;
 
-import java.util.Stack;
-import java.util.EmptyStackException;
 
 abstract class RecParser extends StepParser {
   
@@ -39,7 +33,7 @@ abstract class RecParser extends StepParser {
     switch (act) {
       case ACCEPT: {
 	stk.popT();
-	ySelect= new Integer(lineNum); treeSelect= null;
+	ySelect=Integer.valueOf(lineNum); treeSelect= null;
 	didLastUpdate= true;
 	break;
       }
@@ -55,7 +49,7 @@ abstract class RecParser extends StepParser {
 	  stk.peekT().getOffsetTree().addKid(t);
 	}
 	stk.pushT(e);
-	ySelect= new Integer(lineNum);
+	ySelect= Integer.valueOf(lineNum);
 	treeSelect= t;
 	break;
       }
@@ -67,7 +61,7 @@ abstract class RecParser extends StepParser {
 	  OffsetTree t= new OffsetTree(n);
 	  ParseStkEntry e= new ParseStkEntry(t);
 	  stk.peekT().getOffsetTree().addKid(t);
-	  ySelect= new Integer(lineNum);
+	  ySelect= Integer.valueOf(lineNum);
 	  tok= scanner.nextTok();
 	  treeSelect= t;
 	}
@@ -76,7 +70,7 @@ abstract class RecParser extends StepParser {
 	  OffsetTree t= new OffsetTree(n);
 	  ParseStkEntry e= new ParseStkEntry(t);
 	  stk.peekT().getOffsetTree().addKid(t); stk.pushT(e);
-	  ySelect= new Integer(lineNum);
+	  ySelect= Integer.valueOf(lineNum);
 	  didLastUpdate= true;
 	  throw new ParseException();
 	}
@@ -84,7 +78,7 @@ abstract class RecParser extends StepParser {
       }
       case RETURN: {
 	treeSelect= stk.popT().getOffsetTree();
-	ySelect= new Integer(lineNum);
+	ySelect= Integer.valueOf(lineNum);
 	break;
       }
       default:

@@ -16,12 +16,11 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.OffsetTree;
-import zdu.parsdemo.ParseStkEntry;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
-import java.util.Vector;
+
+
 
 class ParseStk extends Stack
 {

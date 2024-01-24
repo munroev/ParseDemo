@@ -16,8 +16,7 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import java.awt.Color;
-import java.awt.Component;
+
 
 /** This interface is implemented by widgets which can have a portion
  * of them selected.

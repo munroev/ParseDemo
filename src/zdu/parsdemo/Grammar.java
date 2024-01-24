@@ -16,17 +16,14 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.GramSym;
-import zdu.parsdemo.NonTerm;
-import zdu.parsdemo.Rule;
-import zdu.parsdemo.Terminal;
+
 
 import java.util.*;
 
 abstract class Grammar {
 
   Terminal terminal(int tokNum) {
-    Terminal t= (Terminal) terminalsByTok.get(new Integer(tokNum));
+    Terminal t= (Terminal) terminalsByTok.get(Integer.valueOf(tokNum));
     return (t == null) ? ERR : t;
   }
 

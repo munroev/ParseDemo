@@ -147,15 +147,15 @@ public class ANSICScanner extends Scanner {
     addTok(IF_TOK, "if");
   }
 
-  private void initIDs() {
-    ids.put("div", new Integer(ids.size()));
-    ids.put("mod", new Integer(ids.size()));
-  }
+  // private void initIDs() {
+  //   ids.put("div", new Integer(ids.size()));
+  //   ids.put("mod", new Integer(ids.size()));
+  // }
 
   public int getID(String text) {
     Integer val = (Integer) ids.get(text);
     if (val == null) {
-      val = new Integer(ids.size());
+      val = Integer.valueOf(ids.size());
       ids.put(text, val);
     }
     return val.intValue();
@@ -180,7 +180,7 @@ public class ANSICScanner extends Scanner {
         tokBuf.append(eofName);
         break;
       }
-      for (c = peek(); Character.isSpace(c); advance(), c = peek()) {
+      for (c = peek(); Character.isWhitespace(c); advance(), c = peek()) {
       }
       if (Character.isLetter(c)) {
         do {

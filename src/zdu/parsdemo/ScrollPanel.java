@@ -17,16 +17,11 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 package zdu.parsdemo;
 
 import java.awt.*;
-
-import java.awt.event.*;
 import javax.swing.*;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
 import javax.swing.JScrollBar;
 import javax.swing.JPanel;
-import java.awt.Adjustable;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
+
+
 
 /**
  * A panel containing a canvas, a south and east scrollbars.

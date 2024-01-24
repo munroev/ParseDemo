@@ -16,7 +16,6 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.GramSym;
 
 class ParseNode {
   /** Create a new parse node.

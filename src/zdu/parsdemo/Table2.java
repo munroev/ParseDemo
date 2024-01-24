@@ -26,7 +26,7 @@ row and column indexes as well as values.
 
 */
 
-import zdu.parsdemo.RowCol;
+
 
 import java.util.Iterator;
 import java.util.Hashtable;
@@ -58,14 +58,14 @@ abstract class Table2 {
 
   void addRow(Object row) {
     if (rows.get(row) == null) {
-      rows.put(row, new Integer(rowVec.size()));
+      rows.put(row, Integer.valueOf(rowVec.size()));
       rowVec.add(row);
     }
   }
 
   void addCol(Object col) {
     if (cols.get(col) == null) {
-      cols.put(col, new Integer(colVec.size()));
+      cols.put(col, Integer.valueOf(colVec.size()));
       colVec.add(col);
     }
   }

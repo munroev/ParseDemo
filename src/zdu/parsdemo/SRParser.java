@@ -16,13 +16,6 @@ THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
 
 package zdu.parsdemo;
 
-import zdu.parsdemo.Grammar;
-import zdu.parsdemo.GramSym;
-import zdu.parsdemo.NonTerm;
-import zdu.parsdemo.ParseDisplay;
-import zdu.parsdemo.Rule;
-import zdu.parsdemo.StepParser;
-import zdu.parsdemo.Terminal;
 
 class SRParser extends StepParser {
 
@@ -95,10 +88,12 @@ class SRParser extends StepParser {
 	      case SRAct.REDUCE: {
 		Rule rule= act.getRule();
 		if (rule.getNum() == 0) { //accept
-		  forest.pop();  //pop EOF from forest.
+		//   forest.pop();  //pop EOF from forest.
+		while(!stk.empty()){
 		  stk.popT();    //pop EOF from stk.
-		  stk.popT();    //pop full parse tree from stk.
-		  stk.popT();    //pop $S.
+		}
+		//   stk.popT();    //pop full parse tree from stk.
+		//   stk.popT();    //pop $S.
 		  xSelect= ySelect= null;
 		  didLastUpdate= true; treeSelect= null;
 		}

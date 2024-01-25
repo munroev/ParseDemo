@@ -85,6 +85,11 @@ class TraceCanvas extends ScrollableCanvas {
 
   }
 
+  public void resetScrollBar(){
+    hScroll.setValue(0);
+    vScroll.setValue(0);
+  }
+
   // Add a trace line to the canvas, incrementally updating the stkWidth
   // and inputWidth parameters, and set a flag to update scrollbars.
   void addTrace(String stk, String input) {

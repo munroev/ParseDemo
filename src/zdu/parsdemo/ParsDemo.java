@@ -213,7 +213,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
          resizeTree(QUATER);
       } else if (e.getSource() == Rec) {
 
-         removeComponents();
+         // removeComponents();
+         resetCanvas();
          currGrammar = REC_DESCENT_PARSER;
          setGrammar(REC_DESCENT_PARSER);
          setComponents();
@@ -221,7 +222,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
 
       } else if (e.getSource() == LL) {
 
-         removeComponents();
+         // removeComponents();
+         resetCanvas();
          currGrammar = LL_PARSER;
          setGrammar(LL_PARSER);
          setComponents();
@@ -229,7 +231,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
 
       } else if (e.getSource() == SR) {
 
-         removeComponents();
+         // removeComponents();
+         resetCanvas();
          currGrammar = SR_PARSER;
          setGrammar(SR_PARSER);
          setComponents();
@@ -305,6 +308,12 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       this.validate();
    }
 
+   private void resetCanvas(){
+      removeComponents();
+      traceCanvas.resetScrollBar();
+
+      
+   }
    private void setComponents() {
 
       GridBagLayout layout = new GridBagLayout();
@@ -429,7 +438,8 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       SELECT_HEIGHT = (.85 - TREE_HEIGHT);
       TRACE_HEIGHT = (.85 - TREE_HEIGHT);
 
-      removeComponents();
+      // removeComponents();
+      resetCanvas
       setGrammar(currGrammar);
       setComponents();
       doStart();

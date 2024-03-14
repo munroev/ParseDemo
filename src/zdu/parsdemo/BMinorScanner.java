@@ -64,6 +64,45 @@ public static final int TOKEN_EOF=306;
 
   private void initToks(){
 
+    addTok(TOKEN_ARRAY, "array");
+    addTok(TOKEN_AUTO, "auto");
+    addTok(TOKEN_BOOLEAN, "boolean");
+    addTok(TOKEN_CHAR, "char");
+    addTok(TOKEN_STRING, "string");
+    addTok(TOKEN_ELSE, "else");
+    addTok(TOKEN_IF, "if");
+    addTok(TOKEN_FUNCTION, "function");
+    addTok(TOKEN_INTEGER, "integer");
+    addTok(TOKEN_PRINT, "print");
+    addTok(TOKEN_RETURN, "return");
+    addTok(TOKEN_VOID, "void");
+    addTok(TOKEN_WHILE, "while");
+
+    addTok(TOKEN_INC, "++");
+    addTok(TOKEN_DEC, "--");
+    addTok(TOKEN_SUB, "-");
+    addTok(TOKEN_EXP, "^");
+    addTok(TOKEN_NOT, "!");
+    addTok(TOKEN_MULT, "*");
+    addTok(TOKEN_DIV, "/");
+    addTok(TOKEN_MOD, "%");
+
+    addTok(TOKEN_GEQ, ">=");
+    addTok(TOKEN_LEQ, "<=");
+    addTok(TOKEN_EQ, "==");
+    addTok(TOKEN_LEQ, "<");
+    addTok(TOKEN_GREAT, "<");
+    addTok(TOKEN_NEQ, "!=");
+    addTok(TOKEN_AND, "&&");
+    addTok(TOKEN_OR, "||");
+    addTok(TOKEN_ASSIGN, "=");
+
+
+    /* FIXME
+     * true|false		{ return check_token(TOKEN_BOOL); }
+    [+-]?{DIGIT}+		{ return check_token(TOKEN_NUMBER); }
+    CH_CHAR}"'"		{ return format_token(check_token(TOKEN_CH)); }
+     */
   }
 
 

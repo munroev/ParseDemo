@@ -30,6 +30,8 @@ class ExtendedSRGram extends Grammar {
     addRHS(stmt);
     endRule();
 
+    //stmtlist->stmtlist stm | stmt
+
     // Statement
     beginRule(stmt);
     addRHS(ID);

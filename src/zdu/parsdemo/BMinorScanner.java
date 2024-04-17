@@ -97,6 +97,21 @@ public static final int TOKEN_EOF=306;
     addTok(TOKEN_OR, "||");
     addTok(TOKEN_ASSIGN, "=");
 
+    addTok(TOKEN_IDENT,"  ");
+
+    addTok(TOKEN_LBRACK, "[");
+    addTok(TOKEN_RBRACK, "]");
+    addTok(TOKEN_LPAR, "(");
+    addTok(TOKEN_RPAR, ")");
+    addTok(TOKEN_LCURL, "{");
+    addTok(TOKEN_RCURL,"}");
+    addTok(TOKEN_COLON,":");
+    addTok(TOKEN_SEMI,";");
+    addTok(TOKEN_COMMA,",");
+
+    addTok(TOKEN_EOF, "<<EOF>>");
+
+
 
     /* FIXME
      * true|false		{ return check_token(TOKEN_BOOL); }

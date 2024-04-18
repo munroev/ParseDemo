@@ -37,8 +37,8 @@ class ExtendedSRB-MinorGram extends Grammar {
 
   final NonTerm prim = nonTerm("primative");
   final NonTerm lval = nonTerm("lvalue");
-  final NonTerm suf = nonTerm("suffix");
-  final NonTerm call_suf = nonTerm("call_suffix");
+  final NonTerm suffix = nonTerm("suffix");
+  final NonTerm call_suffix = nonTerm("call_suffix");
 
 
   final NonTerm subscript= nonTerm("subscript");
@@ -121,7 +121,213 @@ class ExtendedSRB-MinorGram extends Grammar {
     addRHS(fun_decln);
     endRule();
 
+    beginRule(ext_decln);
+    addRHS(decln);
+    endRule();
 
+    //stmt
+    beginRule(stmt);
+    addRHS(print_stmt);
+    endRule();
+
+    beginRule(stmt);
+    addRHS(expr_stm);
+    endRule();
+
+    beginRule(stmt);
+    addRHS(iter_stmt);
+    endRule();
+
+    beginRule(stmt);
+    addRHS(jump_stmt);
+    endRule();
+
+    beginRule(stmt);
+    addRHS(cmpnd_stmt);
+    endRule();
+
+    beginRule(stmt);
+    addRHS(select_stmt);
+    endRule();
+
+    
+    //printStmt
+    beginRule(print_stmt);
+    addRHS(TOKEN_PRINT);
+    addRHS(print_list);
+    addRHS(TOKEN_SEMI);
+    endRule();
+
+    //print list
+    beginRule(print_list);
+    addRHS(assign_expr);
+    addRHS(TOKEN_COMMA);
+    addRHS(print_list);
+    endRule();
+
+    beginRule(print_list);
+    addRHS(assign_expr);
+    endRule();
+
+    //exprStmt
+    beginRule(expr_stm)
+    addRHS(expr)
+    addRHS(TOKEN_SEMI);
+    endRule();
+
+    //printList
+    beginRule(print_list);
+    addRHS(TOKEN_PRINT);
+    addRHS(print_list);
+    addRHS(TOKEN_SEMI);
+    endRule();
+
+    beginRule(print_list);
+    addRHS(assign_expr);
+    endRule();
+
+    //expr_stmt
+    beginRule(expr_stmt);
+    addRHS(expr);
+    addRHS(TOKEN_SEMI);
+    endRule();
+
+    //expr
+    beginRule(expr);
+    addRHS(assign_expr);
+    endRule();
+
+    beginRule(expr);
+    addRHS(expr);
+    addRHS(TOKEN_COMMA);
+    addRHS(assign_expr);
+    endRule();
+
+    //assign_expr
+    beginRule(assign_expr);
+    addRHS(lor_expr);
+    endRule();
+
+    beginRule(assign_expr);
+    addRHS(unary_expr);
+    addRHS(TOKEN_ASSIGN);
+    addRHS(assign_expr);
+    endRule();
+
+    //unary_expr
+    beginRule(unary_expr);
+    addRHS(postfix_expr);
+    endRule();
+
+    beginRule(unary_expr);
+    addRHS(TOKEN_ADD);
+    addRHS(unary_expr);
+    endRule();
+
+    beginRule(unary_expr);
+    addRHS(TOKEN_NOT);
+    addRHS(unary_expr);
+    endRule();
+    
+    beginRule(unary_expr);
+    addRHS(TOKEN_SUB);
+    addRHS(unary_expr);
+    endRule();
+    
+
+    //postfix_expr
+    beginRule(postfix_expr);
+    addRHS(primary_expr);
+    endRule();
+
+    beginRule(postfix_expr);
+    addRHS(postfix_expr);
+    addRHS(TOKEN_LPAR);
+    addRHS(expr);
+    addRHS(TOKEN_RPAR);
+    endRule();
+
+    beginRule(postfix_expr);
+    addRHS(postfix_expr);
+    addRHS(TOKEN_INC);
+    endRule();
+
+    beginRule(postfix_expr);
+    addRHS(postfix_expr);
+    addRHS(TOKEN_DEC);
+    endRule();
+
+    //primary exp
+    beginRule(primary_expr);
+    addRHS(primative);
+    endRule();
+    
+    beginRule(primary_expr);
+    addRHS(TOKEN_LPAR);
+    addRHS(expr);
+    addRHS(TOKEN_RPAR);
+    endRule();
+
+    beginRule(primary_expr);
+    addRHS(lval);
+    endRule();
+
+    //primative
+    beginRule(primative);
+    addRHS(TOKEN_BOOL);
+    endRule();
+
+    beginRule(primative);
+    addRHS(TOKEN_CH);
+    endRule();
+
+    beginRule(primative);
+    addRHS(TOKEN_NUMBER);
+    endRule();
+
+    beginRule(primative);
+    addRHS(TOKEN_STR);
+    endRule();
+
+    //lvalue
+    beginRule(lval);
+    addRHS(decltr);
+    addRHS(suffix);
+    endRule();
+
+    //suffix
+    beginRule(suffix);
+    addRHS(call_suffix);
+    endRule();
+
+    beginRule(suffix);
+    addRHS(subscript_list);
+    endRule();
+
+    //fixme question?
+    beginRule(suffix);
+    addRHS( %empty);
+    endRule();
+
+    //call-suffix
+    beginRule(call_suffix);
+    addRHS(TOKEN_LPAR);
+    addRHS(expr);
+    addRHS(TOKEN_RPAR);
+
+    beginRule(call_suffix);
+    addRHS(TOKEN_LPAR);
+    addRHS(TOKEN_RPAR);
+
+    //subscript
+    beginRule(subscript_list);
+    addRHS(subscript_list);
+    addRHS(subscript);
+    endRule();
+
+    beginRule(subscript_list);
+    addRHS(subscript);
+    endRule();
 
 
 
@@ -135,17 +341,9 @@ class ExtendedSRB-MinorGram extends Grammar {
 
     //beginRule(factor)
     //addRHS(lparen)
-    //addRHS(exper)
+    //addRHS(expr)
     //addRHS(rparen)
     //endRule();
-
-    //stmt : print_stmt
-    //  | expr_stmt
-    //  | iter_stmt
-    //  | jump_stmt
-    //  | cmpnd_stmt
-    //  | select_stmt
-    //  ;
 
     //beginRule(stmt)
     //addRHS(print_stmt)

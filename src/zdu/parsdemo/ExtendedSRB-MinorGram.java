@@ -7,7 +7,9 @@ class ExtendedSRB-MinorGram extends Grammar {
   final NonTerm decl = nonTerm("decl");
   final NonTerm ext_decln = nonTerm("ext_decln");
   final NonTerm fun_decln = nonTerm("function_decln");
+  final NonTerm fun_decl = nonTerm("function_decl");
   final NonTerm decln= nonTerm("decln");
+  final NonTerm int_decln = nonTerm("int_decln");
 
   final NonTerm stmt = nonTerm("stmt");
   final NonTerm print_stmt = nonTerm("print_stmt");
@@ -31,11 +33,13 @@ class ExtendedSRB-MinorGram extends Grammar {
   final NonTerm unary_expr = nonTerm("unary_expr");
   final NonTerm postfix_expr = nonTerm("postfix_expr");
   final NonTerm primary_expr = nonTerm("primary_expr");
+  final NonTerm decl_list = nonTerm("decl_list");
 
   final NonTerm for = nonTerm("for");
   final NonTerm block_list = nonTerm("block_list");
   final NonTerm block = nonTerm("block");
   final NonTerm initialization = nonTerm("initialization");
+  final NonTerm init = nonTerm("init");
 
 
 
@@ -49,6 +53,8 @@ class ExtendedSRB-MinorGram extends Grammar {
   final NonTerm subscript_list=nonTerm("subscript_list");
   final NonTerm decltr = nonTerm("decltr");
   final NonTerm lor_expr = nonTerm("lor_expr");
+  final NonTerm param_list = nonTerm("param_list");
+  final NonTerm init_list = nonTerm("init_list");
 
 
 
@@ -66,8 +72,11 @@ class ExtendedSRB-MinorGram extends Grammar {
   final Terminal FUNCTION = terminal("=", BMinorScanner.TOKEN_ASSIGN);
   final Terminal BOOL = terminal("boolean", BMinorScanner.TOKEN_BOOLEAN);
   final Terminal CHAR = terminal("char", BMinorScanner.TOKEN_CHAR);
-  final Terminal CHAR = terminal("integer", BMinorScanner.TOKEN_INTEGER);
-  final Terminal CHAR = terminal("string", BMinorScanner.TOKEN_STRING);
+  final Terminal INT = terminal("integer", BMinorScanner.TOKEN_INTEGER);
+  final Terminal STRING = terminal("string", BMinorScanner.TOKEN_STRING);
+  final Terminal ARRAY = terminal("array", BMinorScanner.TOKEN_ARRAY);
+  final Terminal CHAR = terminal("string", BMinorScanner.TOKEN_PRINT);
+  final Terminal NUM = terminal ("number")//fixme question?
 
   final Terminal INC = terminal("++", BMinorScanner.TOKEN_INC);
   final Terminal DEC = terminal("--", BMinorScanner.TOKEN_DEC);
@@ -186,15 +195,15 @@ class ExtendedSRB-MinorGram extends Grammar {
     
     //printStmt
     beginRule(print_stmt);
-    addRHS(TOKEN_PRINT);
+    addRHS(PRINT);
     addRHS(print_list);
-    addRHS(TOKEN_SEMI);
+    addRHS(SEMI);
     endRule();
 
     //print list
     beginRule(print_list);
     addRHS(assign_expr);
-    addRHS(TOKEN_COMMA);
+    addRHS(COMMA);
     addRHS(print_list);
     endRule();
 
@@ -205,14 +214,14 @@ class ExtendedSRB-MinorGram extends Grammar {
     //exprStmt
     beginRule(expr_stm)
     addRHS(expr)
-    addRHS(TOKEN_SEMI);
+    addRHS(SEMI);
     endRule();
 
     //printList
     beginRule(print_list);
-    addRHS(TOKEN_PRINT);
+    addRHS(PRINT);
     addRHS(print_list);
-    addRHS(TOKEN_SEMI);
+    addRHS(SEMI);
     endRule();
 
     beginRule(print_list);
@@ -222,7 +231,7 @@ class ExtendedSRB-MinorGram extends Grammar {
     //expr_stmt
     beginRule(expr_stmt);
     addRHS(expr);
-    addRHS(TOKEN_SEMI);
+    addRHS(SEMI);
     endRule();
 
     //expr
@@ -232,7 +241,7 @@ class ExtendedSRB-MinorGram extends Grammar {
 
     beginRule(expr);
     addRHS(expr);
-    addRHS(TOKEN_COMMA);
+    addRHS(COMMA);
     addRHS(assign_expr);
     endRule();
 
@@ -243,7 +252,7 @@ class ExtendedSRB-MinorGram extends Grammar {
 
     beginRule(assign_expr);
     addRHS(unary_expr);
-    addRHS(TOKEN_ASSIGN);
+    addRHS(ASSGN);
     addRHS(assign_expr);
     endRule();
 
@@ -253,7 +262,7 @@ class ExtendedSRB-MinorGram extends Grammar {
     endRule();
 
     beginRule(unary_expr);
-    addRHS(TOKEN_ADD);
+    addRHS(ADD);
     addRHS(unary_expr);
     endRule();
 
@@ -263,7 +272,7 @@ class ExtendedSRB-MinorGram extends Grammar {
     endRule();
     
     beginRule(unary_expr);
-    addRHS(TOKEN_SUB);
+    addRHS(SUB);
     addRHS(unary_expr);
     endRule();
     
@@ -275,19 +284,19 @@ class ExtendedSRB-MinorGram extends Grammar {
 
     beginRule(postfix_expr);
     addRHS(postfix_expr);
-    addRHS(TOKEN_LPAR);
+    addRHS(LPAR);
     addRHS(expr);
-    addRHS(TOKEN_RPAR);
+    addRHS(RPAR);
     endRule();
 
     beginRule(postfix_expr);
     addRHS(postfix_expr);
-    addRHS(TOKEN_INC);
+    addRHS(INC);
     endRule();
 
     beginRule(postfix_expr);
     addRHS(postfix_expr);
-    addRHS(TOKEN_DEC);
+    addRHS(DEC);
     endRule();
 
     //primary exp
@@ -296,9 +305,9 @@ class ExtendedSRB-MinorGram extends Grammar {
     endRule();
     
     beginRule(primary_expr);
-    addRHS(TOKEN_LPAR);
+    addRHS(LPAR);
     addRHS(expr);
-    addRHS(TOKEN_RPAR);
+    addRHS(RPAR);
     endRule();
 
     beginRule(primary_expr);
@@ -307,7 +316,7 @@ class ExtendedSRB-MinorGram extends Grammar {
 
     //primative
     beginRule(primative);
-    addRHS(TOKEN_BOOL);
+    addRHS(BOOL);
     endRule();
 
     beginRule(primative);
@@ -315,11 +324,11 @@ class ExtendedSRB-MinorGram extends Grammar {
     endRule();
 
     beginRule(primative);
-    addRHS(TOKEN_NUMBER);
+    addRHS(NUM); 
     endRule();
 
     beginRule(primative);
-    addRHS(TOKEN_STR);
+    addRHS(STRING);
     endRule();
 
     //lvalue
@@ -344,13 +353,13 @@ class ExtendedSRB-MinorGram extends Grammar {
 
     //call-suffix
     beginRule(call_suffix);
-    addRHS(TOKEN_LPAR);
+    addRHS(LPAR);
     addRHS(expr);
-    addRHS(TOKEN_RPAR);
+    addRHS(RPAR);
 
     beginRule(call_suffix);
-    addRHS(TOKEN_LPAR);
-    addRHS(TOKEN_RPAR);
+    addRHS(LPAR);
+    addRHS(RPAR);
 
     //subscript
     beginRule(subscript_list);
@@ -368,9 +377,9 @@ class ExtendedSRB-MinorGram extends Grammar {
     endRule();
 
     beginRule(decltr);
-    addRHS(TOKEN_LPAR);
+    addRHS(LPAR);
     addRHS(decltr);
-    addRHS(TOKEN_RPAR);
+    addRHS(RPAR);
     endRule();
 
     //land_expr
@@ -380,20 +389,20 @@ class ExtendedSRB-MinorGram extends Grammar {
 
     beginRule(land_expr);
     addRHS(land_expr);
-    addRHS(TOKEN_AND);
+    addRHS(AND);
     addRHS(eq_expr);
     endRule();
 
     //eq_expr
     beginRule(eq_expr);
     addRHS(eq_expr);
-    addRHS(TOKEN_EQ);
+    addRHS(EQ);
     addRHS(rel_expr);
     endRule();
 
     beginRule(eq_expr);
     addRHS(eq_expr);
-    addRHS(TOKEN_NEQ);
+    addRHS(NEQ);
     addRHS(rel_expr);
     endRule();
 
@@ -409,38 +418,38 @@ class ExtendedSRB-MinorGram extends Grammar {
 
     beginRule(rel_eqr);
     addRHS(rel_eqr);
-    addRHS(TOKEN_LESS);
+    addRHS(LESS);
     addRHS(add_expr);
     endRule();
 
     beginRule(rel_eqr);
     addRHS(rel_eqr);
-    addRHS(TOKEN_GREAT);
+    addRHS(GREATER);
     addRHS(add_expr);
     endRule();
 
     beginRule(rel_eqr);
     addRHS(rel_eqr);
-    addRHS(TOKEN_LEQ);
+    addRHS(LEQ);
     addRHS(add_expr);
     endRule();
 
     beginRule(rel_eqr);
     addRHS(rel_eqr);
-    addRHS(TOKEN_GEQ);
+    addRHS(GEQ);
     addRHS(add_expr);
     endRule();
 
     //add_expr
     beginRule(add_expr);
     addRHS(add_expr);
-    addRHS(TOKEN_GREAT);
+    addRHS(GREATER);
     addRHS(mult_expr);
     endRule();
 
     beginRule(add_expr);
     addRHS(add_expr);
-    addRHS(TOKEN_SUB);
+    addRHS(SUB);
     addRHS(mult_expr);
     endRule();
 
@@ -452,19 +461,19 @@ class ExtendedSRB-MinorGram extends Grammar {
 
     beginRule(mult_expr);
     addRHS(mult_expr);
-    addRHS(TOKEN_MULT);
+    addRHS(MULT);
     addRHS(exp_expr);
     endRule();
 
     beginRule(mult_expr);
     addRHS(mult_expr);
-    addRHS(TOKEN_DIV);
+    addRHS(DIV);
     addRHS(exp_expr);
     endRule();
 
     beginRule(mult_expr);
     addRHS(mult_expr);
-    addRHS(TOKEN_MOD);
+    addRHS(MOD);
     addRHS(exp_expr);
     endRule();
 
@@ -475,7 +484,7 @@ class ExtendedSRB-MinorGram extends Grammar {
     //exp_expr
     beginRule(exp_expr);
     addRHS(exp_expr);
-    addRHS(TOKEN_EXP);
+    addRHS(EXP);
     addRHS(unary_expr);
     endRule();
 
@@ -485,84 +494,84 @@ class ExtendedSRB-MinorGram extends Grammar {
 
     //select_stmt
     beginRule(select_stmt);
-    addRHS(TOKEN_IF);
-    addRHS(TOKEN_LPAR);
+    addRHS(IF);
+    addRHS(LPAR);
     addRHS(expr);
-    addRHS(TOKEN_RPAR);
+    addRHS(RPAR);
     addRHS(stmt);
     endRule();
 
     beginRule(select_stmt);
-    addRHS(TOKEN_IF);
-    addRHS(TOKEN_LPAR);
+    addRHS(IF);
+    addRHS(LPAR);
     addRHS(expr);
-    addRHS(TOKEN_RPAR);
+    addRHS(RPAR);
     addRHS(stmt);
-    addRHS(TOKEN_ELSE);
+    addRHS(ELSE);
     addRHS(stmt);
     endRule();
 
     //iter_stmt
 
     beginRule(iter_stmt);
-    addRHS(TOKEN_WHILE);
-    addRHS(TOKEN_LPAR);
+    addRHS(WHILE);
+    addRHS(LPAR);
     addRHS(expr);
-    addRHS(TOKEN_RPAR);
+    addRHS(RPAR);
     addRHS(stmt);
     endRule();
 
     beginRule(iter_stmt);
-    addRHS(TOKEN_FOR);
-    addRHS(TOKEN_LPAR);
+    addRHS(FOR);
+    addRHS(LPAR);
     addRHS(for);
-    addRHS(TOKEN_RPAR);
+    addRHS(RPAR);
     addRHS(stmt);
     endRule();
   
     //for
     beginRule(for);
-    addRHS(TOKEN_SEMI);
-    addRHS(TOKEN_SEMI);
+    addRHS(SEMI);
+    addRHS(SEMI);
     addRHS(expr);
     endRule();
 
     beginRule(for);
-    addRHS(TOKEN_SEMI);
-    addRHS(TOKEN_SEMI);
+    addRHS(SEMI);
+    addRHS(SEMI);
     endRule();
 
     beginRule(for);
-    addRHS(TOKEN_SEMI);
+    addRHS(SEMI);
     addRHS(expr_stmt);
     endRule();
 
     beginRule(for);
-    addRHS(TOKEN_SEMI);
+    addRHS(SEMI);
     addRHS(expr_stmt);
     addRHS(expr);
     endRule();
 
     beginRule(for);
     addRHS(expr_stmt);
-    addRHS(TOKEN_SEMI);
-    addRHS(expr);
-    endRule();
-    
-    beginRule(for);
-    addRHS(expr_stmt);
-    addRHS(TOKEN_SEMI);
-    endRule();
-
-    beginRule(for);
-    addRHS(decln);
-    addRHS(TOKEN_SEMI);
+    addRHS(SEMI);
     addRHS(expr);
     endRule();
     
     beginRule(for);
+    addRHS(expr_stmt);
+    addRHS(SEMI);
+    endRule();
+
+    beginRule(for);
     addRHS(decln);
-    addRHS(TOKEN_SEMI);
+    addRHS(SEMI);
+    addRHS(expr);
+    endRule();
+    
+    beginRule(for);
+    addRHS(decln);
+    addRHS(SEMI);
     endRule();
 
     beginRule(for);
@@ -578,15 +587,197 @@ class ExtendedSRB-MinorGram extends Grammar {
 
     //jump
     beginRule(jump_stmt);
-    addRHS(TOKEN_RETURN);
+    addRHS(RETURN);
     addRHS(expr);
-    addRHS(TOKEN_SEMI);
+    addRHS(SEMI);
     endRule();
 
     beginRule(jump_stmt);
-    addRHS(TOKEN_RETURN);
+    addRHS(RETURN);
+    addRHS(SEMI);
+    endRule();
+
+    //cmpd_stm
+    beginRule(cmpnd_stmt);
+    addRHS(LCURL);
+    addRHS(block_list);
+    addRHS(RCURL);
+    endRule();
+
+
+    beginRule(cmpnd_stmt);
+    addRHS(LCURL);
+    addRHS(RCURL);
+    endRule();
+
+    //blckList
+    beginRule(block_list);
+    addRHS(block_list);
+    addRHS(block);
+    endRule();
+
+
+    beginRule(block_list);
+    addRHS(block);
+    endRule();
+
+    //block
+    beginRule(block);
+    addRHS(int_decln);
+    endRule();
+
+    beginRule(block);
+    addRHS(stmt);
+    endRule();
+
+    //intialize
+    beginRule(initialization);
+    addRHS(ASSGN);
+    addRHS(init);
+    addRHS(ASSGN);
+    endRule();
+
+    //decln
+    beginRule(decln);
+    addRHS(decl);
+    addRHS(SEMI);
+    endRule();
+
+    beginRule(decln);
+    addRHS(decl);
+    addRHS(initialization);
+    endRule();
+
+    //fun_decl
+    beginRule(fun_decl);
+    addRHS(decltr);
+    addRHS(COLON);
+    addRHS(FUNCTION);
+    addRHS(ret_type);
+    endRule();
+
+    //fun_suffix
+    beginRule(fun_suffix);
+    addRHS(ASSGN);
+    addRHS(cmpnd_stmt);
+    endRule();
+
+    beginRule(fun_suffix);
     addRHS(TOKEN_SEMI);
     endRule();
+
+    //fun_decl
+    beginRule(fun_decl);
+    addRHS(LPAR);
+    addRHS(VOID);
+    addRHS(RPAR);
+    addRHS(fun_suffix);
+    endRule();
+
+    beginRule(fun_decl);
+    addRHS(LPAR);
+    addRHS(RPAR);
+    addRHS(fun_suffix);
+    endRule();
+
+    beginRule(fun_decl);
+    addRHS(LPAR);
+    addRHS(param_list);
+    addRHS(RPAR);
+    addRHS(fun_suffix);
+    endRule();
+
+    //param_list
+    beginRule(param_list);
+    addRHS(decl_list);
+    endRule();
+
+    //decl_list
+    beginRule(decl_list);
+    addRHS(decl);
+    addRHS(COMMA);
+    addRHS(decl_list);
+    endRule();
+
+    beginRule(decl_list);
+    addRHS(decl);
+    endRule();
+
+    //init
+    beginRule(init);
+    addRHS(LCURL);
+    addRHS(init_list);
+    addRHS(RCURL);
+    endRule();
+
+    beginRule(init);
+    addRHS(assign_expr);
+    endRule();
+
+
+  //init_list
+  beginRule(init_list);
+  addRHS(init);
+  addRHS(COMMA);
+  addRHS(init);
+  endRule();
+
+  beginRule(init_list);
+  addRHS(init);
+  endRule();
+
+  //type
+  beginRule(type);
+  addRHS(array_list)
+  addRHS(atomic_type);
+  endRule();
+
+  beginRule(type);
+  addRHS(atomic_type);
+  endRule();
+  
+  beginRule(type);
+  addRHS(AUTO);
+  endRule();
+
+  beginRule(ret_type);
+  addRHS(array_list);
+  addRHS(atomic_type);
+  endRule();
+
+  beginRule(ret_type);
+  addRHS(atomic_type);
+  endRule();
+
+  beginRule(ret_type);
+  addRHS(VOID);
+  endRule();
+
+  //arryList
+  beginRule(array_list);
+  addRHS(array_list);
+  addRHS(array);
+  endRule();
+
+  beginRule(array_list);
+  addRHS(array);
+  endRule();
+
+  //array
+  beginRule(array);
+  addRHS(ARRAY);
+  addRHS(TOKEN_LBRACK);
+  addRHS(assign_expr);
+  addRHS(TOKEN_RBRACK);
+  endRule();
+
+  beginRule(array);
+  addRHS(ARRAY);
+  addRHS(TOKEN_LBRACK);
+  addRHS(TOKEN_RBRACK);
+  endRule();
+
+
   }
 
 

@@ -1,3 +1,5 @@
+# Original Version
+
 ## Getting Started
 
 This was originally a Java Applet written by professor Zerksis D. Umrigar to demonstrate parsing algorithms with a custom context free grammar. This app is now used as a learning tool by Professor Charles T. Wilkes at the University Of Massachusetts Lowell in the Organization Of Programming Languages course. I modified the code so it became a stand alone app, as Java Applets have become deprecated. In addition to implementing a new grammar at the request of Professor Wilkes , I also added features such as being able to rerun parsings during runtime and being able to choose a grammar from a drop down menu.
@@ -31,3 +33,22 @@ The workspace contains two folders by default, where:
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
+
+# 2024 Version
+
+## Completed 
+
+* Removed depricated code and replaced it with modern versions
+
+
+* Made the screen size adjustible and adaptable for all screen sizes
+
+
+* Fixed bug causing SR Parser to crash
+
+
+
+
+## Incomplete Work
+ 
+B-Minor has not been completely intergrated, the scanner &  grammar have been added but work still needs to be done to connect the scanner and grammar to the front end and to create the table and tree. 

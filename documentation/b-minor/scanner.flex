@@ -149,7 +149,7 @@ void error_message(error_t error, token_t kind) {
   strcat(error_text, msg);
 }
 token_t check_token(token_t kind) {
-  /* checks if a token is too long */
+  /* checks iff a token is too long */
   if (yyleng > YYLMAX) {
     kind = TOKEN_ERROR;
     error_message(TOO_LONG, TOKEN_ERROR);

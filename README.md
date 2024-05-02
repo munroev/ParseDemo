@@ -52,3 +52,5 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 ## Incomplete Work
  
 B-Minor has not been completely intergrated, the scanner &  grammar have been added but work still needs to be done to connect the scanner and grammar to the front end and to create the table and tree. 
+
+

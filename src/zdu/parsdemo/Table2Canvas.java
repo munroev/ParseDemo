@@ -84,7 +84,7 @@ class Table2Canvas extends ScrollableCanvas implements Selectable {
   }
 
   public synchronized void reshape(int x, int y, int w, int h) {
-    //FIXME setBounds doesn't work
+    //FIXME reshape() deprecated
     super.reshape(x, y, w, h); updated= true;
   }
 

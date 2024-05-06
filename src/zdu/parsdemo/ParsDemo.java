@@ -79,8 +79,6 @@ public class ParsDemo extends JFrame implements Runnable, ActionListener, Window
       setGrammar(alg);
 
       addWindowListener(this);
-      // resizeButton = new JButton("increase tree window");
-      // resizeButton.addActionListener(this);
       updateButton = new JButton("update");
       updateButton.addActionListener(this);
       inputField = new JTextField(INIT_INPUT, 50);
